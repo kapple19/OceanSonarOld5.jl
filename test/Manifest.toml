@@ -2,7 +2,7 @@
 
 julia_version = "1.10.2"
 manifest_format = "2.0"
-project_hash = "1f45826613cafa0faebd6512f3b1b9e3efe7eaaf"
+project_hash = "0982de2fa10213520b37032d78b5ec17d46180ea"
 
 [[deps.Aqua]]
 deps = ["Compat", "Pkg", "Test"]
@@ -156,6 +156,18 @@ version = "1.4.3"
 deps = ["Unicode"]
 uuid = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 
+[[deps.PropCheck]]
+deps = ["Compat", "InteractiveUtils", "Logging", "Random", "RequiredInterfaces", "Test"]
+git-tree-sha1 = "859234e2490881f049d52998cbcc52281381b258"
+uuid = "ca382230-33be-11e9-0059-d981d03070e4"
+version = "0.10.1"
+
+    [deps.PropCheck.extensions]
+    ATExt = "AbstractTrees"
+
+    [deps.PropCheck.weakdeps]
+    AbstractTrees = "1520ce14-60c1-5f80-bbc7-55ef81b5835c"
+
 [[deps.REPL]]
 deps = ["InteractiveUtils", "Markdown", "Sockets", "Unicode"]
 uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
@@ -163,6 +175,12 @@ uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
 [[deps.Random]]
 deps = ["SHA"]
 uuid = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+
+[[deps.RequiredInterfaces]]
+deps = ["InteractiveUtils", "Logging", "Test"]
+git-tree-sha1 = "e7eb973af4753abf5d866941268ec6ea2aec5556"
+uuid = "97f35ef4-7bc5-4ec1-a41a-dcc69c7308c6"
+version = "0.1.5"
 
 [[deps.Requires]]
 deps = ["UUIDs"]
@@ -179,6 +197,11 @@ version = "3.5.14"
 [[deps.SHA]]
 uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 version = "0.7.0"
+
+[[deps.SafeTestsets]]
+git-tree-sha1 = "81ec49d645af090901120a1542e67ecbbe044db3"
+uuid = "1bc83da4-3b8d-516f-aca4-4fe02f6d838f"
+version = "0.1.0"
 
 [[deps.Serialization]]
 uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"

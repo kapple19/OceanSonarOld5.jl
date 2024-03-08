@@ -1,14 +1,18 @@
-using OceanSonar
 using Test
-using Aqua
-using JET
+using SafeTestsets
 
-@testset "OceanSonar.jl" begin
-    @testset "Code quality (Aqua.jl)" begin
-        Aqua.test_all(OceanSonar)
+@testset "OceanSonar.jl" verbose = true begin
+    @testset "Code Quality" verbose = true begin
+        @safetestset "Aqua.jl" include("quality/aqua.jl")
+        @safetestset "JET.jl" include("quality/jet.jl")
+        @safetestset "Ambiguities" include("quality/ambiguities.jl")
+        @safetestset "Docstrings" include("quality/docstrings.jl")
     end
-    @testset "Code linting (JET.jl)" begin
-        JET.test_package(OceanSonar; target_defined_modules = true)
+
+    @testset "Modelling" verbose = true begin
+        @safetestset "Sonar Types" include("modelling/hierarchy.jl")
+        @safetestset "Concreteness" include("modelling/concreteness.jl")
+        @safetestset "Type Stability" include("modelling/type_stability.jl")
+        @safetestset "Model Stability" include("modelling/model_stability.jl")
     end
-    # Write your tests here.
 end
