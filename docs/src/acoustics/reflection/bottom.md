@@ -1,6 +1,6 @@
 # Bottom Reflection
 
-```@example
+```julia
 using OceanSonar
 using CairoMakie
 
