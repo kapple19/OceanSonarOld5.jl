@@ -79,5 +79,3 @@ end
 
 save("jensen_fig_1_23.svg", fig)
 ```
-
-![Replication of Figure 1.23 of Jensen, et al (2011)](jensen_fig_1_23.svg)

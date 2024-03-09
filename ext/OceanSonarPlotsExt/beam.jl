@@ -11,7 +11,7 @@
     x = [
         beam.x.(
             [
-                range(0, beam.s_max, 301); beam.s_rfl; beam.s_hrz
+                range(0, beam.s_max, 301); beam.s_srf; beam.s_bot; beam.s_hrz
             ] |> OceanSonar.uniquesort!
         ) for beam in beams
     ]
@@ -19,7 +19,7 @@
     z = [
         beam.z.(
             [
-                range(0, beam.s_max, 301); beam.s_rfl; beam.s_hrz
+                range(0, beam.s_max, 301); beam.s_srf; beam.s_bot; beam.s_hrz
             ] |> OceanSonar.uniquesort!
         ) for beam in beams
     ]

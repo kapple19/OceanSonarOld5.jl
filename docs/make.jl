@@ -61,6 +61,7 @@ pages = [
                 "Rays" => "acoustics/propagation/tracing/ray.md"
                 "Beams" => "acoustics/propagation/tracing/beam.md"
                 "Grid" => "acoustics/propagation/tracing/grid.md"
+                "Replication" => "acoustics/propagation/tracing/replication.md"
             ]
             "Parabolic" => [
                 "Introduction" => "acoustics/propagation/parabolic/root.md"

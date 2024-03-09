@@ -6,7 +6,8 @@ TODO.
 """
 struct Beam <: Result
     s_max::Float64
-    s_rfl::Vector{Float64}
+    s_srf::Vector{Float64}
+    s_bot::Vector{Float64}
     s_hrz::Vector{Float64}
 
     x::Function
@@ -90,9 +91,13 @@ function Beams(
         u₀[3] = ξ₀ = cos(θ₀) / c₀
         u₀[4] = ζ₀ = sin(θ₀) / c₀
 
-        s_rfl = Float64[]
+        s_srf = Float64[]
+        s_bot = Float64[]
         s_hrz = Float64[]
         R_rfl = ComplexF64[]
+
+        record_reflection!(::Altimetry, s) = push!(s_srf, s)
+        record_reflection!(::Bathymetry, s) = push!(s_bot, s)
 
         function reflect!(ntg, bnd::Boundary)
             x, z, ξ, ζ = ntg.u[1:4]
@@ -103,7 +108,7 @@ function Beams(
             θ_inc_deg = atand(ζ, ξ)
             θ_rfl_deg = reflection_angle_degrees(θ_bnd_deg, θ_inc_deg)
 
-            push!(s_rfl, ntg.t)
+            record_reflection!(bnd, ntg.t)
             push!(R_rfl, R_func(bnd, x, z, θ))
 
             ntg.u[3] = cosd(θ_rfl_deg) / c
@@ -147,6 +152,7 @@ function Beams(
         θ(s) = atan(ζ(s), ξ(s))
         c(s) = scen.env.ocn.cel(x(s), z(s))
 
+        s_rfl = [s_srf; s_bot] |> uniquesort!
         cumul_refl_coeff(s) = prod(@views R_rfl[s .≤ s_rfl])
         function pressure(s::Real, n::Real)
             !(0 ≤ s ≤ s_max) && return ComplexF64(0.0)
@@ -171,7 +177,7 @@ function Beams(
             return R * A * sqrt(sqrt_arg) * exp(exp_arg) ::ComplexF64
         end
 
-        beam = Beam(s_max, s_rfl, s_hrz, x, z, ξ, ζ, pressure, θ, c)
+        beam = Beam(s_max, s_srf, s_bot, s_hrz, x, z, ξ, ζ, pressure, θ, c)
 
         push!(beams, beam)
     end

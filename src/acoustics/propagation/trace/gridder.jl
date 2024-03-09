@@ -64,7 +64,8 @@ function trace_gridder!(::Val{:segments},
     for beam in beams
         s = [
             range(0.0, beam.s_max, max(101, Nx ÷ 3));
-            beam.s_rfl;
+            beam.s_srf;
+            beam.s_bot;
             beam.s_hrz
         ] |> uniquesort!
         # s = range(0.0, beam.s_max, max(101, Nx ÷ 3))

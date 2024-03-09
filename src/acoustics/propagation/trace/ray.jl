@@ -2,6 +2,7 @@ export default_angles
 export steepest_angle
 export minimum_angle
 export maximum_angle
+export critical_angle
 export critical_angles
 export rayplot!
 export rayplot
@@ -47,6 +48,8 @@ function default_angles(
     return range(θ_min, θ_max, N)
 end
 
+critical_angle(c_from, c_to) = snells_law(c_to, 0.0, c_from)
+
 function critical_angles(scen::Scenario, N::Integer = DEFAULT_NUM_RAYS)
     z_srf = scen.env.ati(0)
     z_bot = scen.env.bty(0)
@@ -57,13 +60,13 @@ function critical_angles(scen::Scenario, N::Integer = DEFAULT_NUM_RAYS)
     θ_min = if scen.z == z_srf || c_own ≥ c_srf
         minimum_angle(scen)
     else
-        -snells_law(c_srf, 0.0, c_own)
+        -critical_angle(c_own, c_srf)
     end
     
     θ_max = if scen.z == z_bot || c_own ≥ c_bot
         maximum_angle(scen)
     else
-        snells_law(c_bot, 0.0, c_own)
+        critical_angle(c_own, c_bot)
     end
     
     return range(θ_min, θ_max, N)
