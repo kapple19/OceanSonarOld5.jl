@@ -57,7 +57,19 @@ $(document).ready(function() {
       "right": "\\]",
       "display": true
     }
-  ]
+  ],
+  "macros": {
+    "\\rmE": "\\mathrm{E}",
+    "\\calN": "\\mathcal{N}",
+    "\\Rice": "\\mathrm{Rice}",
+    "\\wrt": "\\mathrm{ w.r.t. }",
+    "\\calE": "\\mathcal{E}",
+    "\\DT": "\\mathrm{DT}",
+    "\\Var": "\\mathrm{Var}",
+    "\\SNR": "\\mathrm{SNR}",
+    "\\rmd": "\\mathrm{d}",
+    "\\STD": "\\mathrm{STD}"
+  }
 }
 
   );
