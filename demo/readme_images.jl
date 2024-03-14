@@ -42,7 +42,7 @@ using OceanSonar
 using Plots
 
 scen = Scenario("Munk Profile")
-prop = Propagation("Trace", scen, angles = critical_angles(scen, 21))
+prop = Propagation("Trace", scen, angles = critical_angles(scen, N = 21))
 
 fig = visual(Beam, prop)
 

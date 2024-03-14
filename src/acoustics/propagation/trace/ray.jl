@@ -50,7 +50,7 @@ end
 
 critical_angle(c_from, c_to) = snells_law(c_to, 0.0, c_from)
 
-function critical_angles(scen::Scenario, N::Integer = DEFAULT_NUM_RAYS)
+function critical_angles(scen::Scenario; N::Integer = DEFAULT_NUM_RAYS)
     z_srf = scen.env.ati(0)
     z_bot = scen.env.bty(0)
     c_srf = scen.env.ocn.cel(0.0, z_srf)

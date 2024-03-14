@@ -7,7 +7,7 @@ using Plots
 for model in list_models(Scenario)
     scen = Scenario(model)
     prop = @time "$model" Propagation(:trace, scen,
-        angles = critical_angles(scen, 21)
+        angles = critical_angles(scen, N = 21)
     )
     fig = visual(Beam, prop)
     savefig(fig, "rays_" * modelsnake(scen.model) * ".svg")
