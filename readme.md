@@ -5,13 +5,98 @@
 [![Build Status](https://github.com/kapple19/OceanSonar.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/kapple19/OceanSonar.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Aqua](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
 
+[Latexify.jl]: https://korsbo.github.io/Latexify.jl/stable/
 [ModelingToolkit.jl]: https://docs.sciml.ai/ModelingToolkit/stable/
 [Plots.jl]: https://docs.juliaplots.org/stable/
 [Symbolics.jl]: https://docs.sciml.ai/Symbolics/stable/
 
 This package is in development.
 
-## Features
+The purpose of this package is to implement ocean acoustics and sonar models.
+Its goal is an open source community-developed acoustics package that enables:
+
+* Performance like C++ and Fortran with legible syntax like MATLAB and Python.
+* Distributed and parallel computing provided by Julia.
+* Reproducibility of literature books and papers.
+* Composability and modularity of models.
+* Documented verbosities of mathematical results.
+* Ease of collaboration.
+* Code implementations can be introspected both mathematically and compiler-wise.
+* Reliance and use of community-developed and tested equation solver libraries for differential equations, algebraic equations, etc.
+
+Long term goals:
+
+* Publishing a book with beginner accessibility both mathematically and programmatically.
+* Develop a GUI.
+
+Motivations of the primary author:
+
+* Mastery of field.
+* Community engagement.
+* Julia programming enjoyment and learning.
+* Demonstration of Julia as next generation scientific software tool for analysis and deployment.
+
+## Demonstration
+
+Acoustic ray tracing
+
+```julia
+using OceanSonar
+using Plots
+
+scen = Scenario("Munk Profile")
+prop = Propagation("Trace", scen, angles = critical_angles(scen, N = 21))
+
+visual(Beam, prop)
+```
+
+![munk_profile_rays.svg](munk_profile_rays.svg)
+
+```julia
+using OceanSonar
+using Plots
+
+scen = Scenario("Parabolic Bathymetry")
+lowest_angle = atan(1, 5)
+highest_angle = atan(5, 2)
+angles = angles = range(lowest_angle, highest_angle, 31)
+prop = Propagation("Trace", scen, angles = angles)
+
+fig = visual(Beam, prop)
+```
+
+![parabolic_bathymetry_rays.svg](parabolic_bathymetry_rays.svg)
+
+TODO: Observe frequency perturbation influences for the Lloyd Mirror scenario.
+
+```julia
+using OceanSonar
+using Plots
+
+scen = Scenario("Lloyd Mirror")
+for f in series125(max = 1e3)
+    scen.f = f
+    prop = Propagation("Trace", scen)
+    visual(prop) # TODO: tile
+end
+```
+
+TODO: Compare square root operator approximations for the parabolic equation.
+
+```julia
+using OceanSonar
+using Plots
+
+scen = Scenario("Lloyd Mirror")
+config = ParabolicConfig()
+for model = list_models(SquareRootApprox)
+    config.marcher = marcher
+    prop = Propagation(config, scen)
+    visual(prop) # TODO: tile
+end
+```
+
+## Features of OceanSonar.jl and Julia
 
 Built-in, flexible visualisation with [Plots.jl] backend
 
@@ -42,8 +127,8 @@ env.sbd.den # Seabed density profile as bivariate functor
 env.atm.wnd # Atmosphere wind profile as bivariate functor (WIP)
 ```
 
-Mathematical introspection via [Symbolics.jl]
-and visualisation of equations via [Latexify.jl]
+Mathematic Introspection of implementations via [Symbolics.jl]
+and visualisation via [Latexify.jl]
 
 ```julia
 using OceanSonar
@@ -109,35 +194,6 @@ visual(prop)
 
 ![img/munk_profile_3000.svg](img/munk_profile_3000.svg)
 
-Acoustic ray tracing
-
-```julia
-using OceanSonar
-using Plots
-
-scen = Scenario("Munk Profile")
-prop = Propagation("Trace", scen, angles = critical_angles(scen, N = 21))
-
-visual(Beam, prop)
-```
-
-![munk_profile_rays.svg](munk_profile_rays.svg)
-
-```julia
-using OceanSonar
-using Plots
-
-scen = Scenario("Parabolic Bathymetry")
-lowest_angle = atan(1, 5)
-highest_angle = atan(5, 2)
-angles = angles = range(lowest_angle, highest_angle, 31)
-prop = Propagation("Trace", scen, angles = angles)
-
-fig = visual(Beam, prop)
-```
-
-![parabolic_bathymetry_rays.svg](parabolic_bathymetry_rays.svg)
-
 Easy user expansion
 
 ```julia
@@ -153,7 +209,7 @@ visual(cel, xlim = (0, 10e3), ylim = (0, 5e3))
 
 ![custom_celerity_profile.svg](custom_celerity_profile.svg)
 
-Multithreaded computation
+Fully composable multithreaded computation
 
 ```julia
 using OceanSonar
@@ -178,7 +234,7 @@ Lloyd Mirror: 8.553416 seconds (347.07 M allocations: 10.140 GiB, 17.34% gc time
 All: 8.633860 seconds (347.11 M allocations: 10.142 GiB, 17.18% gc time, 5.26% compilation time)
 ```
 
-## Roadmap
+## Implementation & Roadmap Summary
 
 * Sonar oceanography
   * Conceptually-structured hierarchical containers
@@ -202,7 +258,7 @@ All: 8.633860 seconds (347.11 M allocations: 10.142 GiB, 17.18% gc time, 5.26% c
 
 * Statistical detection theory
   * ROC curves
-  * Sonar type-sensitive detector designs
+  * Signal detector design
   * Detection metrics e.g. signal excess, transition detection probability, etc.
 
 * Documentation
