@@ -75,13 +75,17 @@ pages = [
     "Detection" => [
         "Introduction" => "detection/intro.md"
         "Threshold" => "detection/threshold.md"
+        "Transition" => "detection/transition.md"
     ]
 ]
 
 macros = Dict(
     raw"\rmd" => raw"\mathrm{d}",
     raw"\rmE" => raw"\mathrm{E}",
+    raw"\rmPr" => raw"\mathrm{Pr}",
+    raw"\SNR" => raw"\mathrm{SNR}",
     raw"\DT" => raw"\mathrm{DT}",
+    raw"\SE" => raw"\mathrm{SE}",
     raw"\SNR" => raw"\mathrm{SNR}",
     raw"\calE" => raw"\mathcal{E}",
     raw"\calN" => raw"\mathcal{N}",

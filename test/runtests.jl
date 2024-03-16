@@ -9,6 +9,10 @@ using SafeTestsets
         @safetestset "Docstrings" include("quality/docstrings.jl")
     end
 
+    @testset "Auxiliary" verbose = true begin
+        @safetestset "Series" include("auxiliary/series.jl")
+    end
+
     @testset "Modelling" verbose = true begin
         @safetestset "Sonar Types" include("modelling/hierarchy.jl")
         @safetestset "Concreteness" include("modelling/concreteness.jl")

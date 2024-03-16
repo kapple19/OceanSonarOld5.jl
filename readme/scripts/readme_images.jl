@@ -46,7 +46,7 @@ prop = Propagation("Trace", scen, angles = critical_angles(scen, N = 21))
 
 fig = visual(Beam, prop)
 
-savefig(fig, "munk_profile_rays.svg")
+savefig(fig, "img/munk_profile_rays.svg")
 
 ##
 using OceanSonar
@@ -60,7 +60,7 @@ prop = Propagation("Trace", scen, angles = angles)
 
 fig = visual(Beam, prop)
 
-savefig(fig, "parabolic_bathymetry_rays.svg")
+savefig(fig, "img/parabolic_bathymetry_rays.svg")
 
 ##
 using OceanSonar
@@ -72,7 +72,7 @@ cel = OceanCelerity("Custom Profile")
 
 fig = visual(cel, xlim = (0, 10e3), ylim = (0, 5e3))
 
-savefig(fig, "custom_celerity_profile.svg")
+savefig(fig, "img/custom_celerity_profile.svg")
 
 ##
 using OceanSonar

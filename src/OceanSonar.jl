@@ -18,5 +18,6 @@ include("base/root.jl")
 include("auxiliary/root.jl")
 include("oceanography/root.jl")
 include("acoustics/root.jl")
+include("processing/root.jl")
 
 end

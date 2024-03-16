@@ -1,3 +1,5 @@
+export RationalFunctionApproximation
+
 struct RationalFunctionApproximation{N} <: Functor
     model::Symbol
     a::NTuple{N, NTuple{2, Float64}}
