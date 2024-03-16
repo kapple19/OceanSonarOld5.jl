@@ -61,3 +61,13 @@ function bivariateplot end
 
 colourmap(::Celerity) = :Blues
 colourmap(::Bivariate) = :jet
+
+function rayplot! end
+function rayplot end
+
+default_arc_points(beam::Beam) = [
+    range(0, beam.s_max, 301); beam.s_srf; beam.s_bot; beam.s_hrz
+] |> uniquesort!
+
+function propagationplot! end
+function propagationplot end
