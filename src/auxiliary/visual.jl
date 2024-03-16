@@ -1,7 +1,7 @@
 export visual!
 export visual
-export altimetryplot!
-export altimetryplot
+export boundaryplot!
+export boundaryplot
 
 """
 ```
@@ -32,11 +32,8 @@ See the docstring for the specific `OcnSon` subtype instance for specific usages
 """
 function visual end
 
-function altimetryplot! end
-function altimetryplot end
-
-function bathymetryplot! end
-function bathymetryplot end
+function boundaryplot! end
+function boundaryplot end
 
 function celerityplot! end
 function celerityplot end

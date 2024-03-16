@@ -27,7 +27,7 @@ function visual(args...; kw...)
     return Makie.FigureAxisPlot(fig, ax, plot)
 end
 
-include("boundary/root.jl")
+include("boundary.jl")
 include("environment.jl")
 
 end
