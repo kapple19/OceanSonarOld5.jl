@@ -29,6 +29,8 @@ struct Trace <: Propagation
         ranges::AbstractVector{<:Real} = default_ranges(scen),
         depths::AbstractVector{<:Real} = default_depths(scen),
     )
+        validate(scen)
+
         p = trace_gridder(config.gridder, beams;
             ranges = ranges,
             depths = depths
@@ -47,6 +49,7 @@ function Trace(scen::Scenario, config::TraceConfig = TraceConfig();
     depths::AbstractVector{<:Real} = default_depths(scen),
     angles::AbstractVector{<:Real} = default_angles(scen)
 )
+    validate(scen)
     beams = Beams(config.beam, scen; angles = angles)
     Trace(scen, beams, config;
         ranges = ranges,

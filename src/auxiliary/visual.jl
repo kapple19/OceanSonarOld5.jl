@@ -35,5 +35,8 @@ function visual end
 function altimetryplot! end
 function altimetryplot end
 
+function bathymetryplot! end
+function bathymetryplot end
+
 function celerityplot! end
 function celerityplot end
