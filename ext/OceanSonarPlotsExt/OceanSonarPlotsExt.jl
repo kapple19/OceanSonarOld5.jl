@@ -10,8 +10,6 @@ function visual(args...; kw...)
     visual!(args...; kw...)
 end
 
-colourmap(::Any) = :jet
-
 include("boundary.jl")
 include("bivariate.jl")
 include("medium.jl")

@@ -48,6 +48,8 @@ Scenario(model::Val{:parabolic_bathymetry}) = Scenario(
 @parse_models Scenario
 
 function depth_extrema(bnd::Boundary, x_lo::Real, x_hi::Real)
+    x_lo
+    x_hi
     z_rng = bnd(x_lo .. x_hi)
     return if z_rng isa Interval
         (

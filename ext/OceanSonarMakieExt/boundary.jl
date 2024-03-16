@@ -1,13 +1,13 @@
 import OceanSonar: boundaryplot!, boundaryplot
 
-function ribbon_data(ati::Altimetry, x_lo, x_hi)
+function ribbon_data(ati::Altimetry, x_lo::Real = 0.0, x_hi::Real = 1e3)
     x = range(x_lo, x_hi, 301)
     z_lo, _ = OceanSonar.depth_extrema(ati, x_lo, x_hi)
     z_hi = ati.(x)
     return x, z_lo, z_hi
 end
 
-function ribbon_data(bty::Bathymetry, x_lo, x_hi)
+function ribbon_data(bty::Bathymetry, x_lo::Real = 0.0, x_hi::Real = 1e3)
     x = range(x_lo, x_hi, 301)
     _, z_hi = OceanSonar.depth_extrema(bty, x_lo, x_hi)
     z_lo = bty.(x)
@@ -21,13 +21,13 @@ end
 function boundaryplot_!(
     plot::Plot,
     bnd::Boundary,
-    x_lo::Real,
-    x_hi::Real
+    x_lo::Real = 0.0,
+    x_hi::Real = 1e3
 )
     band!(plot,
         ribbon_data(bnd, x_lo, x_hi)...,
-        color = :blue,
-        axis = (yreversed = true,)
+        color = OceanSonar.boundary_colour(bnd),
+        axis = (yreversed = true,) # doesn't work in low-level Makie processing
     )
     return plot
 end
@@ -35,8 +35,8 @@ end
 function boundaryplot_!(
     plot::Plot,
     env::Environment,
-    x_lo::Real,
-    x_hi::Real
+    x_lo::Real = 0.0,
+    x_hi::Real = 1e3
 )
     boundaryplot_!(plot, env.bnd, x_lo, x_hi)
 end
@@ -58,7 +58,8 @@ function Makie.plot!(plot::BoundaryPlot)
 end
 
 function visual!(bnd::Boundary, args...; kw...)
+    plot = boundaryplot!(bnd, args...; kw...)
     ax = current_axis()
     ax.yreversed = true
-    boundaryplot!(bnd, args...; kw...)
+    return plot
 end

@@ -28,6 +28,8 @@ function visual(args...; kw...)
 end
 
 include("boundary.jl")
+include("bivariate.jl")
+include("medium.jl")
 include("environment.jl")
 
 end

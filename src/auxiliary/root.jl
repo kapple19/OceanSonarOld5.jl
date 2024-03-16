@@ -13,7 +13,6 @@ include("series125.jl")
 
 include("stringcases.jl")
 include("modelling.jl")
-include("visual.jl")
 
 include("interpolation/root.jl")
 include("units/root.jl")

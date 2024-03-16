@@ -31,23 +31,26 @@ sine_default = (
     s = 0.0
 )
 
+ocnson_sin(x::Real) = NaNMath.sin(x)
+ocnson_sin(x::Interval) = sin(x)
+
 function altimetry(::Val{:sine},
     x::Real;
     a::Real = sine_default.a,
     f::Real = -sine_default.f,
     s::Real = sine_default.s
 )
-    a * NaNMath.sin(2π * f*(x - s))
+    a * ocnson_sin(2π * f*(x - s))
 end
 
-function altimetry(::Val{:sine},
-    x::Interval;
-    a::Real = sine_default.a,
-    f::Real = sine_default.f,
-    s::Real = sine_default.s
-)
-    a * sin(2π * f*(x - s))
-end
+# function altimetry(::Val{:sine},
+#     x::Interval;
+#     a::Real = sine_default.a,
+#     f::Real = sine_default.f,
+#     s::Real = sine_default.s
+# )
+#     a * sin(2π * f*(x - s))
+# end
 
 @parse_models_w_args_kwargs altimetry
 

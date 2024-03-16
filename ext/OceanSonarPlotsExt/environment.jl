@@ -14,7 +14,7 @@ function visual!(::Type{OceanCelerity}, env::Environment; kw...)
 end
 
 function visual!(::Type{OceanDensity}, env::Environment; kw...)
-    visual!(Density, env.ocn; kw...)
+    visual!(OceanSonar.Density, env.ocn; kw...)
     visual!(Boundary, env; kw...)
 end
 
