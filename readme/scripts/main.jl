@@ -100,6 +100,7 @@ function write_readme_file()
         println(file)
 
         println(file, read("readme/texts/introduction.md", String))
+        println(file)
         
         println(file, "## Demonstration")
         println(file)
@@ -139,12 +140,11 @@ function write_readme_file()
         println(file)
 
         println(file, "Provided citations:")
-        println(file)
         for ref in readdir("readme/refs")
+            println(file)
             println(file, "```bibtex")
             println(file, read("readme/refs/" * ref, String))
             println(file, "```")
-            println(file)
         end
     end
 end

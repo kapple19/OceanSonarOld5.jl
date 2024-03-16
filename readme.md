@@ -41,6 +41,7 @@ Motivations of the primary author:
 * Community engagement.
 * Julia programming enjoyment and learning.
 * Demonstration of Julia as next generation scientific software tool for analysis and deployment.
+
 ## Demonstration
 
 Acoustic ray tracing
@@ -174,14 +175,13 @@ Cite this work with [`citation.bib`](citation.bib):
 
 ```verbatim
 @misc{OceanSonar.jl,
-	author  = {Aaron Kaw <aaronjkaw@gmail.com> and contributors},
-	title   = {OceanSonar.jl},
-	url     = {https://github.com/kapple19/OceanSonar.jl},
-	version = {v1.0.0-DEV},
-	year    = {2024},
-	month   = {3}
+    author  = {Aaron Kaw <aaronjkaw@gmail.com> and contributors},
+    title   = {OceanSonar.jl},
+    url     = {https://github.com/kapple19/OceanSonar.jl},
+    version = {v1.0.0-DEV},
+    year    = {2024},
+    month   = {3}
 }
-
 ```
 
 ### Academic Bibliography
@@ -260,25 +260,24 @@ Provided citations:
 
 ```bibtex
 @misc{ma2021modelingtoolkit,
-      title={ModelingToolkit: A Composable Graph Transformation System For Equation-Based Modeling},
-      author={Yingbo Ma and Shashi Gowda and Ranjan Anantharaman and Chris Laughman and Viral Shah and Chris Rackauckas},
-      year={2021},
-      eprint={2103.05244},
-      archivePrefix={arXiv},
-      primaryClass={cs.MS}
+    title={ModelingToolkit: A Composable Graph Transformation System For Equation-Based Modeling},
+    author={Yingbo Ma and Shashi Gowda and Ranjan Anantharaman and Chris Laughman and Viral Shah and Chris Rackauckas},
+    year={2021},
+    eprint={2103.05244},
+    archivePrefix={arXiv},
+    primaryClass={cs.MS}
 }
 ```
 
 ```bibtex
 @article{PlotsJL,
-  doi = {https://doi.org/10.5334/jors.431},
-  url = {https://openresearchsoftware.metajnl.com/articles/10.5334/jors.431/},
-  author = {Christ, Simon and Schwabeneder, Daniel and Rackauckas, Christopher and Borregaard, Michael Krabbe and Breloff, Thomas},
-  keywords = {Graphics (cs.GR), FOS: Computer and information sciences, FOS: Computer and information sciences, I.3.3},
-  title = {Plots.jl -- a user extendable plotting API for the julia programming language},
-  publisher = {Journal of Open Research Software},
-  year = {2023},
-  copyright = {Creative Commons Attribution 4.0 International}
+    doi = {https://doi.org/10.5334/jors.431},
+    url = {https://openresearchsoftware.metajnl.com/articles/10.5334/jors.431/},
+    author = {Christ, Simon and Schwabeneder, Daniel and Rackauckas, Christopher and Borregaard, Michael Krabbe and Breloff, Thomas},
+    keywords = {Graphics (cs.GR), FOS: Computer and information sciences, FOS: Computer and information sciences, I.3.3},
+    title = {Plots.jl -- a user extendable plotting API for the julia programming language},
+    publisher = {Journal of Open Research Software},
+    year = {2023},
+    copyright = {Creative Commons Attribution 4.0 International}
 }
 ```
-
