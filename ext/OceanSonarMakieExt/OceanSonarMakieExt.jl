@@ -31,5 +31,6 @@ include("boundary.jl")
 include("bivariate.jl")
 include("medium.jl")
 include("environment.jl")
+include("scenario.jl")
 
 end

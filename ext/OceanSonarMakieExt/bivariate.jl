@@ -27,7 +27,6 @@ bivariateplot_!(::Plot, args...) = error(
 )
 
 function Makie.plot!(plot::BivariatePlot)
-    @show get_plot_arguments(plot)
     get_plot_arguments(plot) |> splat(bivariateplot_!)
 end
 
