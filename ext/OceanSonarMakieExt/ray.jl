@@ -31,6 +31,9 @@ function Makie.plot!(plot::RayPlot)
     get_plot_arguments(plot) |> splat(rayplot_!)
 end
 
-visual!(beams::Vector{Beam}; kw...) = rayplot!(beams; kw...)
+function visual!(beams::Vector{Beam}; kw...)
+    rayplot!(beams; kw...)
+    return current_figure()
+end
 
 visual!(beam::Beam; kw...) = visual!([beam]; kw...)

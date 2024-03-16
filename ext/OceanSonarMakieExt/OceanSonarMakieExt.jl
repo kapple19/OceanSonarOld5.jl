@@ -22,9 +22,9 @@ end
 
 function visual(args...; kw...)
     fig = Figure()
-    ax = Axis(fig[1, 1])
-    plot = visual!(args...; kw...)
-    return Makie.FigureAxisPlot(fig, ax, plot)
+    Axis(fig[1, 1])
+    visual!(args...; kw...)
+    return fig
 end
 
 include("boundary.jl")
@@ -33,5 +33,6 @@ include("medium.jl")
 include("environment.jl")
 include("scenario.jl")
 include("ray.jl")
+include("propagation.jl")
 
 end

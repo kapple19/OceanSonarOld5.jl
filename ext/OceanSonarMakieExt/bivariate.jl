@@ -36,5 +36,5 @@ function visual!(biv::Bivariate, args...; kw...)
     ax.yreversed = true
     fig = current_figure()
     Colorbar(fig[1, end+1], plt)
-    return plt
+    return current_figure()
 end

@@ -1,6 +1,7 @@
 function visual!(env::Environment, x_lo::Real, x_hi::Real; kw...)
     visual!(env.ati, x_lo, x_hi; kw...)
     visual!(env.bty, x_lo, x_hi; kw...)
+    return current_figure()
 end
 
 get_boundary(::Type{Altimetry}, env::Environment) = env.ati
@@ -12,6 +13,7 @@ function visual!(type::Type{<:Boundary}, env::Environment,
 )
     @assert isconcretetype(type) "Expecting concrete type request."
     visual!(get_boundary(type, env), x_lo, x_hi)
+    return current_figure()
 end
 
 function visual!(type::Type{<:Bivariate}, env::Environment,
@@ -23,6 +25,7 @@ function visual!(type::Type{<:Bivariate}, env::Environment,
     z_lo, z_hi = OceanSonar.depth_extrema(env, x_lo, x_hi)
     visual!(super, env.ocn, x_lo, x_hi, z_lo, z_hi; kw...)
     visual!(env, x_lo, x_hi)
+    return current_figure()
 end
 
 function visual!(::Type{Boundary}, env::Environment,
@@ -30,4 +33,5 @@ function visual!(::Type{Boundary}, env::Environment,
     kw...
 )
     visual!(env, x_lo, x_hi; kw...)
+    return current_figure()
 end

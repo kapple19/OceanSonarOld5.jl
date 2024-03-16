@@ -1,5 +1,9 @@
 function visual!(type::Type{<:OceanSonar.Functor}, scen::Scenario)
     visual!(type, scen.env, 0.0, scen.x)
+    return current_figure()
 end
 
-visual!(scen::Scenario) = visual!(OceanCelerity, scen)
+function visual!(scen::Scenario)
+    visual!(OceanCelerity, scen)
+    return current_figure()
+end

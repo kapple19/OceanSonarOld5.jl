@@ -83,6 +83,9 @@ depth_extrema(
     x_hi::Real = scen.x
 ) = depth_extrema(scen.env, x_lo, x_hi)
 
+depth_minimum(args...) = depth_extrema(args...) |> splat(min)
+depth_maximum(args...) = depth_extrema(args...) |> splat(max)
+
 function validate(scen::Scenario)
     @assert scen.env.ati(0) ≤ scen.z ≤ scen.env.bty(0)
 end

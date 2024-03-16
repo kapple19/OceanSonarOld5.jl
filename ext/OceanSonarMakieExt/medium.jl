@@ -7,4 +7,5 @@ function visual!(type::Type{<:Bivariate}, med::Medium,
     kw...
 )
     visual!(get_bivariate(type, med), x_lo, x_hi, z_lo, z_hi; kw...)
+    return current_figure()
 end

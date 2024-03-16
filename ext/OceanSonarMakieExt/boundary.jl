@@ -61,5 +61,5 @@ function visual!(bnd::Boundary, args...; kw...)
     plot = boundaryplot!(bnd, args...; kw...)
     ax = current_axis()
     ax.yreversed = true
-    return plot
+    return current_figure()
 end
