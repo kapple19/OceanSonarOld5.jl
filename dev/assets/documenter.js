@@ -59,16 +59,18 @@ $(document).ready(function() {
     }
   ],
   "macros": {
-    "\\rmE": "\\mathrm{E}",
+    "\\rmPr": "\\mathrm{Pr}",
     "\\calN": "\\mathcal{N}",
-    "\\Rice": "\\mathrm{Rice}",
+    "\\SE": "\\mathrm{SE}",
     "\\wrt": "\\mathrm{ w.r.t. }",
-    "\\calE": "\\mathcal{E}",
     "\\DT": "\\mathrm{DT}",
     "\\Var": "\\mathrm{Var}",
     "\\SNR": "\\mathrm{SNR}",
-    "\\rmd": "\\mathrm{d}",
-    "\\STD": "\\mathrm{STD}"
+    "\\STD": "\\mathrm{STD}",
+    "\\rmE": "\\mathrm{E}",
+    "\\Rice": "\\mathrm{Rice}",
+    "\\calE": "\\mathcal{E}",
+    "\\rmd": "\\mathrm{d}"
   }
 }
 
