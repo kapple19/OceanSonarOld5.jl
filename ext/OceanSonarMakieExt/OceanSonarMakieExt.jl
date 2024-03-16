@@ -28,5 +28,6 @@ function visual(args...; kw...)
 end
 
 include("boundary/root.jl")
+include("environment.jl")
 
 end
