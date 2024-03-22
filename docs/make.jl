@@ -80,6 +80,7 @@ pages = [
 ]
 
 macros = Dict(
+    raw"\rma" => raw"\mathrm{a}",
     raw"\rmd" => raw"\mathrm{d}",
     raw"\rmE" => raw"\mathrm{E}",
     raw"\rmPr" => raw"\mathrm{Pr}",
