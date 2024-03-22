@@ -61,6 +61,7 @@ $(document).ready(function() {
   "macros": {
     "\\rmPr": "\\mathrm{Pr}",
     "\\calN": "\\mathcal{N}",
+    "\\rma": "\\mathrm{a}",
     "\\SE": "\\mathrm{SE}",
     "\\wrt": "\\mathrm{ w.r.t. }",
     "\\DT": "\\mathrm{DT}",
