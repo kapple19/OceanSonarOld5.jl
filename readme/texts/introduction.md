@@ -12,11 +12,6 @@ Its goal is an open source community-developed acoustics package that enables:
 * Code implementations that can be introspected mathematically, compiler-wise, and visualisation functionalities are built-in.
 * Reliance and use of community-developed and tested equation solver libraries for differential equations, root finders, etc.
 
-Long term goals:
-
-* Publishing a book with beginner accessibility both mathematically and programmatically.
-* Develop a GUI.
-
 Motivations of the primary author:
 
 * Mastery of field.

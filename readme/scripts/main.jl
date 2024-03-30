@@ -104,6 +104,10 @@ function write_readme_file()
         println(file, read("readme/texts/introduction.md", String))
         println(file)
         
+        println(file, "## Usage")
+        println(file, read("readme/texts/usage.md", String))
+        println(file)
+        
         println(file, "## Demonstration")
         println(file)
 

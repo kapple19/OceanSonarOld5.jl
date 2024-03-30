@@ -30,17 +30,25 @@ Its goal is an open source community-developed acoustics package that enables:
 * Code implementations that can be introspected mathematically, compiler-wise, and visualisation functionalities are built-in.
 * Reliance and use of community-developed and tested equation solver libraries for differential equations, root finders, etc.
 
-Long term goals:
-
-* Publishing a book with beginner accessibility both mathematically and programmatically.
-* Develop a GUI.
-
 Motivations of the primary author:
 
 * Mastery of field.
 * Community engagement.
 * Julia programming enjoyment and learning.
 * Demonstration of Julia as next generation scientific software tool for analysis and deployment.
+
+## Usage
+Installation requires the [Julia] programming language.
+
+This package is still under development,
+thus the repository address is required for installation.
+
+1. Install Julia using the instructions [here](https://julialang.org/downloads/).
+2. Open a Julia REPL (terminal).
+3. Activate the `Pkg` mode by pressing `]`.
+4. Enter `add https://github.com/kapple19/OceanSonar.jl` which installs the `OceanSonar.jl` package.
+5. Return to the `Julian` mode by backspacing.
+6. Enter `using OceanSonar`.
 
 ## Demonstration
 
