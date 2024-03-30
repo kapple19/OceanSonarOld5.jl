@@ -22,6 +22,8 @@ c = ocean_celerity(:munk, 1e3, 1e2; ϵ = 1e-3)
 """
 function ocean_celerity end
 
+@parse_models_w_args_kwargs ocean_celerity
+
 """
 ```
 c::Float64 = ocean_celerity(::Val{:homogeneous}, x::Real, z::Real)
@@ -65,7 +67,70 @@ function ocean_celerity(::Val{:index_squared}, x::Real, z::Real; c₀ = 1550.0)
     c₀ / NaNMath.sqrt(1 + 2.4z / c₀)
 end
 
-@parse_models_w_args_kwargs ocean_celerity
+data_linearised_convergence_zones = (
+    z = Float64[0, 300, 1200, 2000, 5000],
+    c = Float64[1522, 1501, 1514, 1496, 1545]
+)
+
+itp_linearised_convergence_zones = Bivariate(
+    nothing,
+    data_linearised_convergence_zones.z,
+    data_linearised_convergence_zones.c
+)
+
+"""
+```
+c::Float64 = ocean_celerity("Linearised Convergence Zones", x::Real, z::Real)
+```
+
+Calculation of ocean sound speed by table 1.1 of Jensen, et al (2011).
+This model is range (`x` [m]) independent and depth (`z` [m]) dependent.
+"""
+function ocean_celerity(::Val{:linearised_convergence_zones},
+    x::Real, z::Real 
+)
+    return itp_linearised_convergence_zones(x, z)
+end
+
+data_norwegian_sea = (
+    z = [0, 145, 250, 500, 750, 1000, 2000, 4000],
+    c = [1495, 1500, 1485, 1475, 1477, 1485, 1500, 1525]
+)
+
+itp_norwegian_sea = Bivariate(
+    nothing,
+    data_norwegian_sea.z,
+    data_norwegian_sea.c
+)
+
+"""
+Fig 1.12 of Jensen, et al (2011).
+"""
+function ocean_celerity(::Val{:norwegian_sea},
+    x::Real, z::Real 
+)
+    return itp_norwegian_sea(x, z)
+end
+
+data_north_atlantic = (
+    z = Float64[0, 300, 1200, 2e3, 5e3],
+    c = Float64[1522.0, 1502, 1514, 1496, 1545]
+)
+
+itp_north_atlantic = Bivariate(
+    nothing,
+    data_north_atlantic.z,
+    data_north_atlantic.c
+)
+
+"""
+TODO of Jensen, et al (2011).
+"""
+function ocean_celerity(::Val{:north_atlantic},
+    x::Real, z::Real 
+)
+    return itp_north_atlantic(x, z)
+end
 
 """
 ```

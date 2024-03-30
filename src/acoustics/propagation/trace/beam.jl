@@ -31,6 +31,117 @@ end
 list_model_symbols(::Type{Beam}) = list_model_symbols(Beams)
 
 function Beams(
+    ::Val{:ray},
+    scen::Scenario;
+    angles = default_angles(scen)
+)
+    c_func(x::Real, z::Real) = scen.env.ocn.cel(x, z)
+    ∂c_∂x_func(x::Real, z::Real) = derivative(x -> c_func(x, z), x)
+    ∂c_∂z_func(x::Real, z::Real) = derivative(z -> c_func(x, z), z)
+
+    function trace!(du, u, _, s)
+        x, z, ξ, ζ = u
+
+        c = c_func(x, z)
+        c² = c^2
+        ∂c_∂x = ∂c_∂x_func(x, z)
+        ∂c_∂z = ∂c_∂z_func(x, z)
+
+        du[1] = dx_ds = c * ξ
+        du[2] = dz_ds = c * ζ
+        du[3] = dξ_ds = -∂c_∂x / c²
+        du[4] = dζ_ds = -∂c_∂z / c²
+    end
+    
+    x₀::Float64 = 0.0
+    z₀::Float64 = scen.z
+    c₀::Float64 = c_func(x₀, z₀)
+
+    R_func(::Altimetry, x, z, θ) = SurfaceReflectionCoefficient(:rayleigh_fluid, scen.env)(x, z, scen.f, θ |> abs)
+    R_func(::Bathymetry, x, z, θ) = BottomReflectionCoefficient(:rayleigh_solid, scen.env)(x, z, scen.f, θ |> abs)
+
+    beams = Beam[]
+    u₀ = [x₀, z₀, NaN64, NaN64]
+    u = fill(NaN64, length(u₀))
+
+    for θ₀ in angles
+        u₀[3] = ξ₀ = cos(θ₀) / c₀
+        u₀[4] = ζ₀ = sin(θ₀) / c₀
+
+        s_srf = Float64[]
+        s_bot = Float64[]
+        s_hrz = Float64[]
+        R_rfl = ComplexF64[]
+
+        record_reflection!(::Altimetry, s) = push!(s_srf, s)
+        record_reflection!(::Bathymetry, s) = push!(s_bot, s)
+
+        function reflect!(ntg, bnd::Boundary)
+            x, z, ξ, ζ = ntg.u[1:4]
+            c = c_func(x, z)
+            θ = atan(ζ, ξ)
+
+            θ_bnd_deg = derivative(bnd, x) |> atand
+            θ_inc_deg = atand(ζ, ξ)
+            θ_rfl_deg = reflection_angle_degrees(θ_bnd_deg, θ_inc_deg)
+
+            record_reflection!(bnd, ntg.t)
+            push!(R_rfl, R_func(bnd, x, z, θ))
+
+            ntg.u[3] = cosd(θ_rfl_deg) / c
+            ntg.u[4] = sind(θ_rfl_deg) / c
+
+            nothing
+        end
+
+        cb_rng = ContinuousCallback(
+            (u, _, _) -> u[1] - scen.x,
+            terminate!
+        )
+
+        cb_ati = ContinuousCallback(
+            (u, _, _) -> u[2] - scen.env.ati(u[1]),
+            ntg -> reflect!(ntg, scen.env.ati)
+        )
+
+        cb_bty = ContinuousCallback(
+            (u, _, _) -> u[2] - scen.env.bty(u[1]),
+            ntg -> reflect!(ntg, scen.env.bty)
+        )
+
+        # cb_hrz = ContinuousCallback(
+        #     (u, _, _) -> u[4],
+        #     ntg -> push!(s_hrz, ntg.t)
+        # ) # "Larger maxiters is needed" message from OrdinaryDiffEq.jl
+
+        # cb = CallbackSet(cb_rng, cb_ati, cb_bty, cb_hrz)
+        cb = CallbackSet(cb_rng, cb_ati, cb_bty)
+
+        prob = ODEProblem(trace!, u₀, DEFAULT_RAY_ARC_SPAN)
+        sol = solve(prob, Tsit5(), callback = cb,
+            reltol = 1e-50
+        )
+
+        s_max = sol.t[end]
+
+        x(s) = sol(s, idxs = 1)
+        z(s) = sol(s, idxs = 2)
+        ξ(s) = sol(s, idxs = 3)
+        ζ(s) = sol(s, idxs = 4)
+        θ(s) = atan(ζ(s), ξ(s))
+        c(s) = scen.env.ocn.cel(x(s), z(s))
+
+        pressure(s::Real, n::Real) = ComplexF64(0.0)
+
+        beam = Beam(s_max, s_srf, s_bot, s_hrz, x, z, ξ, ζ, pressure, θ, c)
+
+        push!(beams, beam)
+    end
+
+    return beams
+end
+
+function Beams(
     ::Val{:gaussian},
     scen::Scenario;
     angles = default_angles(scen)
@@ -118,22 +229,22 @@ function Beams(
         end
 
         cb_rng = ContinuousCallback(
-            (u, _, _) -> u[1] - scen.x,
+            (u_sol, _, _) -> u_sol[1] - scen.x,
             terminate!
         )
 
         cb_ati = ContinuousCallback(
-            (u, _, _) -> u[2] - scen.env.ati(u[1]),
+            (u_sol, _, _) -> u_sol[2] - scen.env.ati(u_sol[1]),
             ntg -> reflect!(ntg, scen.env.ati)
         )
 
         cb_bty = ContinuousCallback(
-            (u, _, _) -> u[2] - scen.env.bty(u[1]),
+            (u_sol, _, _) -> u_sol[2] - scen.env.bty(u_sol[1]),
             ntg -> reflect!(ntg, scen.env.bty)
         )
 
         # cb_hrz = ContinuousCallback(
-        #     (u, _, _) -> u[4],
+        #     (u_sol, _, _) -> u_sol[4],
         #     ntg -> push!(s_hrz, ntg.t)
         # ) # "Larger maxiters is needed" message from OrdinaryDiffEq.jl
 
@@ -141,7 +252,9 @@ function Beams(
         cb = CallbackSet(cb_rng, cb_ati, cb_bty)
 
         prob = ODEProblem(trace!, u₀, DEFAULT_RAY_ARC_SPAN)
-        sol = solve(prob, Tsit5(), callback = cb)
+        sol = solve(prob, Tsit5(), callback = cb,
+            reltol = 1e-100
+        )
 
         s_max = sol.t[end]
 

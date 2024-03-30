@@ -172,6 +172,12 @@ let
 	plot!(yflip = true, legend = false, xlim = (0, 250e3))
 end
 
+# ╔═╡ c18f392c-557e-43b3-8644-65aeb78ed837
+scen_lcz = Scenario("linearised Convergence Zones")
+
+# ╔═╡ b61be131-2bf2-422f-8a81-fb5980999371
+sols_lcz = trace.(scen_lcz, critical_angles(scen_lcz, N = 21))
+
 # ╔═╡ Cell order:
 # ╟─7e349625-b3d6-4e6b-a9d7-7ac032ab4aa9
 # ╠═f6f34400-dd3f-11ee-1a23-33af0a082239
@@ -192,3 +198,5 @@ end
 # ╠═faea319b-61fe-4f96-a7fc-eed6a2f2b2de
 # ╠═d3e843dd-86ab-4aee-b8f7-918055acbc0a
 # ╠═7aec2d3d-1b7e-49ff-97b4-9e29d2ef9ae9
+# ╠═c18f392c-557e-43b3-8644-65aeb78ed837
+# ╠═b61be131-2bf2-422f-8a81-fb5980999371

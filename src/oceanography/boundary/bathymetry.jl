@@ -9,6 +9,7 @@ function bathymetry end
 bathymetry(::Val{:shallow}, x::Real) = 1e2
 bathymetry(::Val{:half_kilometre}, x::Real) = 5e2
 bathymetry(::Val{:mesopelagic}, x::Real) = 1e3
+bathymetry(::Val{:four_kilometers}, x::Real) = 4e3
 bathymetry(::Val{:deep}, x::Real) = 5e3
 
 bathymetry(::Val{:parabolic},

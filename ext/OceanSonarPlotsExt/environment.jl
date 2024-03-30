@@ -11,6 +11,10 @@ end
 function visual!(::Type{OceanCelerity}, env::Environment; kw...)
     visual!(Celerity, env.ocn; kw...)
     visual!(Boundary, env; kw...)
+    plot!(
+        colorbar_title = " \n" * "Ocean Sound Speed [m/s]",
+        colorbar_title_font_halign = :right
+    )
 end
 
 function visual!(::Type{OceanDensity}, env::Environment; kw...)

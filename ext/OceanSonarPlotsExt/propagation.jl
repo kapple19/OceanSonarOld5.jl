@@ -20,4 +20,7 @@ function visual!(::Type{Beam}, prop::Propagation; kw...)
     visual!(OceanCelerity, prop; kw...)
     visual!(prop.beams; kw...)
     visual!(Boundary, prop)
+    plot!(
+        title = string("Ray Trace: ", prop.scen.model |> modeltitle)
+    )
 end

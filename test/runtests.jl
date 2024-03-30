@@ -11,6 +11,7 @@ using SafeTestsets
 
     @testset "Auxiliary" verbose = true begin
         @safetestset "Series" include("auxiliary/series.jl")
+        @safetestset "Univariate" include("auxiliary/interpolation/univariate.jl")
     end
 
     @testset "Modelling" verbose = true begin

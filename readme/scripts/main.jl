@@ -1,3 +1,5 @@
+# This script generates the `readme.md` file for the OceanSonar.jl package.
+
 using Plots
 
 badges = [

@@ -42,4 +42,18 @@ Environment(model::Val{:parabolic_bathymetry}) = Environment(
     bty = Bathymetry(:parabolic)
 )
 
+Environment(model::Val{:linearised_convergence_zones}) = Environment(
+    model = model,
+    ocn = Ocean(:linearised_convergence_zones),
+    sbd = Seabed(:jensen_basalt),
+    bty = Bathymetry(:deep)
+)
+
+Environment(model::Val{:norwegian_sea}) = Environment(
+    model = model,
+    ocn = Ocean(:norwegian_sea),
+    sbd = Seabed(:jensen_basalt),
+    bty = Bathymetry(:four_kilometers)
+)
+
 @parse_models Environment

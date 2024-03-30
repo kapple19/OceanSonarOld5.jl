@@ -4,6 +4,7 @@ import Base: show, length, iterate
 using NaNMath
 using IntervalArithmetic: Interval, interval
 using LinearAlgebra: dot
+using Interpolations: linear_interpolation, Flat
 using Statistics: mean
 using ForwardDiff: derivative
 using OrdinaryDiffEq:

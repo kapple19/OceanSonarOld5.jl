@@ -25,4 +25,14 @@ Ocean(model::Val{:index_squared_profile}) = Ocean(
     cel = OceanCelerity(:index_squared)
 )
 
+Ocean(model::Val{:linearised_convergence_zones}) = Ocean(
+    model = model,
+    cel = OceanCelerity(:linearised_convergence_zones)
+)
+
+Ocean(model::Val{:norwegian_sea}) = Ocean(
+    model = model,
+    cel = OceanCelerity(:norwegian_sea)
+)
+
 @parse_models Ocean

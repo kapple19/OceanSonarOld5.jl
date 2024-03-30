@@ -22,3 +22,26 @@ itp(2.4, 11.5)
 ```
 """
 function Bivariate end
+
+function Bivariate(func::Function)
+    try
+        func(0.0, 0.0)
+    catch
+        error("Inputted function not bivariate")
+    end
+    return func
+end
+
+function Bivariate(F_val::Real)
+    func(a::Real, b::Real) = F_val
+    return Bivariate(func)
+end
+
+function Bivariate(
+    ::Nothing,
+    b_vec::AbstractVector{<:Real},
+    F_vec::AbstractVector{<:Real}
+)
+    itp = Univariate(b_vec, F_vec)
+    func(a::Real, b::Real) = itp(b)
+end

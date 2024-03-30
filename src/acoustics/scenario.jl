@@ -45,6 +45,30 @@ Scenario(model::Val{:parabolic_bathymetry}) = Scenario(
     f = 1e2
 )
 
+Scenario(model::Val{:linearised_convergence_zones}) = Scenario(
+    model = model,
+    env = Environment(:linearised_convergence_zones),
+    x = 250e3,
+    z = 0.0,
+    f = 1e3
+)
+
+Scenario(model::Val{:norwegian_sea_sound_channel}) = Scenario(
+    model = model,
+    env = Environment(:norwegian_sea),
+    x = 250e3,
+    z = 500.0,
+    f = 1e3
+)
+
+Scenario(model::Val{:norwegian_sea_surface_duct}) = Scenario(
+    model = model,
+    env = Environment(:norwegian_sea),
+    x = 40e3,
+    z = 40.0,
+    f = 1e3
+)
+
 @parse_models Scenario
 
 function depth_extrema(bnd::Boundary, x_lo::Real, x_hi::Real)
