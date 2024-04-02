@@ -1,6 +1,6 @@
 module OceanSonar
 
-import Base: show, length, iterate
+import Base: show, length, iterate, get
 using NaNMath
 using IntervalArithmetic: Interval, interval
 using LinearAlgebra: dot
@@ -15,11 +15,10 @@ using OrdinaryDiffEq:
     Tsit5,
     terminate!
 
-include("base/root.jl")
-include("auxiliary/root.jl")
+include("pre/root.jl")
 include("oceanography/root.jl")
 include("acoustics/root.jl")
 include("processing/root.jl")
-include("visualisation.jl")
+include("post/root.jl")
 
 end

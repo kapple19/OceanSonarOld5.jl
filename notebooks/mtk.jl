@@ -173,10 +173,17 @@ let
 end
 
 # ╔═╡ c18f392c-557e-43b3-8644-65aeb78ed837
-scen_lcz = Scenario("linearised Convergence Zones")
+scen_lcz = Scenario("linearised Convergence Zones");
 
 # ╔═╡ b61be131-2bf2-422f-8a81-fb5980999371
-sols_lcz = trace.(scen_lcz, critical_angles(scen_lcz, N = 21))
+sols_lcz = trace.(scen_lcz, critical_angles(scen_lcz, N = 21));
+
+# ╔═╡ d6bd9ed2-d768-4ea3-beeb-e1aaa5d068c5
+let
+	plot()
+	plot!.(sols_lcz, idxs = (:x, :z))
+	plot!(yflip = true, legend = false)
+end
 
 # ╔═╡ Cell order:
 # ╟─7e349625-b3d6-4e6b-a9d7-7ac032ab4aa9
@@ -200,3 +207,4 @@ sols_lcz = trace.(scen_lcz, critical_angles(scen_lcz, N = 21))
 # ╠═7aec2d3d-1b7e-49ff-97b4-9e29d2ef9ae9
 # ╠═c18f392c-557e-43b3-8644-65aeb78ed837
 # ╠═b61be131-2bf2-422f-8a81-fb5980999371
+# ╠═d6bd9ed2-d768-4ea3-beeb-e1aaa5d068c5

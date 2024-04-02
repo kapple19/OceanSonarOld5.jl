@@ -4,15 +4,32 @@ using OceanSonar
 using Makie
 
 import OceanSonar: visual!, visual
-import Makie: convert_arguments
+import Makie: AbstractAxis, convert_arguments
 
 include("boundary.jl")
+include("bivariate.jl")
 
-function visual(args...; kw...)
-    fig = Figure()
-    axis = Axis(fig[1, 1])
-    _, plot = visual!(axis, args...; kw...)
-    return Makie.FigureAxisPlot(fig, axis, plot)
+function OceanAxis(pos::GridPosition)
+    axis = Axis(pos[1, 1],
+        yreversed = true,
+        xlabel = "Range [m]",
+        ylabel = "Depth [m]"
+    )
+    return axis
 end
+
+function visual(args...)
+    fig = Figure()
+    pos = fig[1, 1]
+    OceanAxis(pos)
+    visual!(pos, args...)
+    return fig
+end
+
+# function visual!(pos::GridPosition, args...; kw...)
+#     axis = OceanAxis(pos)
+#     @info "here"
+#     visual!(axis, args...; kw...)
+# end
 
 end # module OceanSonarMakieExt

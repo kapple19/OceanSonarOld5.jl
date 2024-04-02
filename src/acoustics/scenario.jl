@@ -1,4 +1,5 @@
 export Scenario
+export depth_extrema
 
 """
 TODO.
