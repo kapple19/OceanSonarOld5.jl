@@ -15,7 +15,7 @@ function bivariateplot_!(
 
     heatmap!(plot,
         x, z, (x, z) -> biv(x, z),
-        colormap = OceanSonar.colourmap(biv),
+        colormap = OceanSonar.colour(biv),
         axis = (yreversed = true,) # doesn't work in low-level Makie processing
     )
 end

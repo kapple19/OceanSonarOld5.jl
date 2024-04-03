@@ -24,7 +24,7 @@ end
 
 function visual!(pos::GridPosition, bnd::Boundary, x::AbstractVector{<:Real})
     band!(pos[1, 1], bnd, x,
-        color = OceanSonar.boundary_colour(bnd)
+        color = OceanSonar.colour(bnd)
     )
     return current_axis()
 end
@@ -43,11 +43,15 @@ function visual!(pos::GridPosition, ::Type{Boundary}, env::Environment, x::Abstr
     return current_axis()
 end
 
-function visual!(pos::GridPosition, type::Type{<:Boundary}, scen::Scenario, Nx::Real)
-    x = range(0.0, scen.x, Nx)
+function visual!(pos::GridPosition, type::Type{<:Boundary}, scen::Scenario, x::AbstractVector{<:Real})
     return visual!(pos, type, scen.env, x)
 end
 
-function visual!(pos::GridPosition, type::Type{<:Boundary}, prop::Propagation, Nx::Real)
-    return visual!(pos, type, prop.scen, Nx)
+function visual!(pos::GridPosition, type::Type{<:Boundary}, scen::Scenario, Nx::Integer)
+    x = OceanSonar.create_range(0.0, scen.x, Nx)
+    return visual!(pos, type, scen, x)
+end
+
+function visual!(pos::GridPosition, type::Type{<:Boundary}, prop::Propagation)
+    return visual!(pos, type, prop.scen, prop.x)
 end

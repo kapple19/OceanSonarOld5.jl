@@ -1,4 +1,5 @@
-export snakecase
+export snake_case
+export title_case
 
 # Temporary solution before I fix StringCases.jl
 # Copying and editing files from StringCases.jl
@@ -23,8 +24,8 @@ end
 
 function _delimcase(cur_string::AbstractString, cur_delim::AbstractString)
     replace(
-      _defaultcase(cur_string),
-      " " => cur_delim
+         _defaultcase(cur_string),
+        " " => cur_delim
     )
 end
 
@@ -43,24 +44,28 @@ function decamelize(cur_string::AbstractString)
     lowercase_phrases = split(cur_string, r"([A-Z]+)")
   
     cur_array = vcat(
-      map(
-        x -> join(x, "_"),
-        [zip(lowercase_phrases, capital_letters)...]
-      )...
+        map(
+            x -> join(x, "_"),
+            [zip(lowercase_phrases, capital_letters)...]
+        )...
     )
   
     cur_string = join(cur_array)
   
     if length(lowercase_phrases) > length(capital_letters)
-      cur_string *= lowercase_phrases[end]
+        cur_string *= lowercase_phrases[end]
     end
   
     if length(lowercase_phrases) < length(capital_letters)
-      error("Improperly handled string on decamelize: $cur_string")
+        error("Improperly handled string on decamelize: $cur_string")
     end
   
     ( startswith(cur_string, "_") ) && ( cur_string = cur_string[2:end] )
     ( startswith(cur_string, "-") ) && ( cur_string = cur_string[2:end] )
   
     cur_string
-end  
+end
+
+defaultcase(text::String) = text |> decamelize |> spacecase
+
+title_case(text::String) = text |> defaultcase |> titlecase

@@ -10,7 +10,7 @@ boundary_outermost(::Bathymetry, z_lo, z_hi) = z_hi
     else
         legend --> :none
         yflip --> true
-        color --> OceanSonar.boundary_colour(bnd)
+        color --> OceanSonar.colour(bnd)
         
         fillrange := boundary_outermost(bnd, z_lo, z_hi)
 

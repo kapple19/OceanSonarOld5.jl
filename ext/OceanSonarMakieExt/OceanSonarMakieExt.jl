@@ -6,9 +6,6 @@ using Makie
 import OceanSonar: visual!, visual
 import Makie: AbstractAxis, convert_arguments
 
-include("boundary.jl")
-include("bivariate.jl")
-
 function OceanAxis(pos::GridPosition)
     axis = Axis(pos[1, 1],
         yreversed = true,
@@ -31,5 +28,10 @@ end
 #     @info "here"
 #     visual!(axis, args...; kw...)
 # end
+
+include("boundary.jl")
+include("bivariate.jl")
+include("ray.jl")
+include("propagation.jl")
 
 end # module OceanSonarMakieExt

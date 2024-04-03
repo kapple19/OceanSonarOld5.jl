@@ -26,7 +26,7 @@ function boundaryplot_!(
 )
     band!(plot,
         ribbon_data(bnd, x_lo, x_hi)...,
-        color = OceanSonar.boundary_colour(bnd),
+        color = OceanSonar.colour(bnd),
         axis = (yreversed = true,) # doesn't work in low-level Makie processing
     )
     return plot

@@ -8,7 +8,7 @@
     seriestype --> :heatmap
     legend --> :none
     yflip --> true
-    colormap --> OceanSonar.colourmap(biv)
+    colormap --> OceanSonar.colour(biv)
 
     x, z, (x, z) -> biv(x, z)
 end
