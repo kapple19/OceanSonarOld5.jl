@@ -7,7 +7,8 @@ colour(prop::Propagation) = OceanSonar.colour(prop) |> Reverse
 
 function visual!(pos::GridPosition, prop::Propagation)
     plot = heatmap!(pos[1, 1], prop,
-        colormap = colour(prop)
+        colormap = colour(prop),
+        colorrange = OceanSonar.colourrange(prop)
     )
     axis = current_axis()
     visual!(pos, Boundary, prop)

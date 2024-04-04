@@ -82,7 +82,7 @@ visual(Beam, prop)
 
 ![readme/img/parabolic_bathymetry_rays.svg](readme/img/parabolic_bathymetry_rays.svg)
 
-Visualise frequency changes
+Visualise frequency changes (issues with CairoMakie image saving)
 
 ```julia
 using OceanSonar

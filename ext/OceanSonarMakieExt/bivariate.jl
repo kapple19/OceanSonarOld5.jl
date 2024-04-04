@@ -63,7 +63,7 @@ function visual!(pos::GridPosition,
     Nx::Integer,
     Nz::Integer
 )
-    x = OceanSonar.create_range(0.0, scen.x, Nx)
+    x = OceanSonar.create_ranges(0.0, scen.x, Nx)
     z = range(depth_extrema(scen)..., Nz)
     return visual!(pos, type, scen.env, x, z)
 end

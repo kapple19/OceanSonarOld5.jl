@@ -1,7 +1,7 @@
 export RationalFunctionApproximation
 
 struct RationalFunctionApproximation{N} <: Functor
-    model::Symbol
+    model::Val
     a::NTuple{N, NTuple{2, Float64}}
     b::NTuple{N, Float64}
 end
@@ -25,14 +25,14 @@ end
 
 function RationalFunctionApproximation(model::Val{:pade}; m::Integer = 2)
     RationalFunctionApproximation(
-        model |> modelsymbol,
+        model,
         pade_rfa(m)...
     )
 end
 
 function RationalFunctionApproximation(model::Val{:tappert})
     RationalFunctionApproximation(
-        model |> modelsymbol,
+        model,
         ((0.0, 0.5),),
         (0.0,)
     )
@@ -40,14 +40,14 @@ end
 
 function RationalFunctionApproximation(model::Val{:claerbout})
     RationalFunctionApproximation(
-        model |> modelsymbol,
+        model,
         pade_rfa(1)...
     )
 end
 
 function RationalFunctionApproximation(model::Val{:greene})
     RationalFunctionApproximation(
-        model |> modelsymbol,
+        model,
         ((0.99987 - 1, 0.79624 - 0.30102),),
         (0.30102,)
     )

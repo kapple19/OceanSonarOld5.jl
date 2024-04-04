@@ -1,6 +1,10 @@
 # Ocean Sonar Modelling
 
 ```@docs
+OcnSon
+```
+
+```@docs
 list_models
 ```
 

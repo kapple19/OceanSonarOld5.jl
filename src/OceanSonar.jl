@@ -5,7 +5,7 @@ using NaNMath
 using IntervalArithmetic: Interval, interval
 using LinearAlgebra: dot
 using Interpolations: linear_interpolation, Flat
-using Statistics: mean
+using Statistics: mean, std
 using ForwardDiff: derivative
 using OrdinaryDiffEq:
     ODEProblem,

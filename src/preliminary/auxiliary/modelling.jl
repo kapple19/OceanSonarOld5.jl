@@ -12,7 +12,7 @@ Converts `model` as a `String`, `Symbol`, or `Val`
 into a snake-case `String` for `OceanSonar` model parsing.
 """
 function modelsnake end
-modelsnake(model::String) = model |> snakecase
+modelsnake(model::String) = model |> snake_case
 modelsnake(model::Symbol) = model |> string |> modelsnake
 modelsnake(::Val{model}) where model = model |> modelsnake
 
@@ -43,7 +43,7 @@ Converts `model` as a `String`, `Symbol`, or `Val`
 into a title-case `String` for `OceanSonar` model parsing.
 """
 function modeltitle(model::Union{String, Symbol, Val})
-    model |> modelsnake |> spacecase |> titlecase
+    model |> modelsnake |> title_case
 end
 
 function list_model_symbols(

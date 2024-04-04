@@ -1,5 +1,5 @@
-export snake_case
 export title_case
+export snake_case
 
 # Temporary solution before I fix StringCases.jl
 # Copying and editing files from StringCases.jl
@@ -69,3 +69,5 @@ end
 defaultcase(text::String) = text |> decamelize |> spacecase
 
 title_case(text::String) = text |> defaultcase |> titlecase
+
+snake_case = snakecase

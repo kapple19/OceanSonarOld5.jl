@@ -48,7 +48,7 @@ function visual!(pos::GridPosition, type::Type{<:Boundary}, scen::Scenario, x::A
 end
 
 function visual!(pos::GridPosition, type::Type{<:Boundary}, scen::Scenario, Nx::Integer)
-    x = OceanSonar.create_range(0.0, scen.x, Nx)
+    x = OceanSonar.create_ranges(0.0, scen.x, Nx)
     return visual!(pos, type, scen, x)
 end
 
