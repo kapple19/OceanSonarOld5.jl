@@ -50,14 +50,16 @@ Behaviour and features may be different between backends.
 """
 function visual end
 
+function OceanAxis end
+
 colour(ocnson::OcnSon) = ocnson |> typeof |> colour
 
 function boundaryplot! end
 function boundaryplot end
 
-# colour(::Type{Altimetry}) = :blue
-# colour(::Type{Bathymetry}) = :brown
-colour(::Type{<:Boundary}) = :gray
+colour(::Type{Altimetry}) = :slateblue1
+colour(::Type{Bathymetry}) = :sienna
+# colour(::Type{<:Boundary}) = :gray
 
 function bivariateplot! end
 function bivariateplot end
@@ -88,3 +90,16 @@ create_depths(z1::Real, z2::Real, Nz::Integer) = range(z1, z2, Nz)
 create_depths(env::Environment, Nz::Integer) = create_depths(depth_extrema(env)..., Nz)
 create_depths(scen::Scenario, Nz::Integer) = create_depths(scen.env, Nz)
 create_depths(prop::Propagation) = prop.z
+
+square_numbers = [(n, n, n^2) for n in 1:25]
+rect_numbers = [(n, n+1, n * (n+1)) for n in 1:25]
+rect_and_square_numbers = sort(
+    [rect_numbers; square_numbers],
+    by = nums -> nums[3]
+)
+
+function rect_or_square_gridsize(N::Integer)
+    rect_and_square_nums = [numbers[3] for numbers in rect_and_square_numbers]
+    idx = findfirst(rect_and_square_nums .≥ N)
+    return rect_and_square_numbers[idx][1:2]
+end

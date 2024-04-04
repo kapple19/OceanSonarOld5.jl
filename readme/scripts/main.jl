@@ -1,6 +1,6 @@
 # This script generates the `readme.md` file for the OceanSonar.jl package.
 
-using Plots
+using CairoMakie
 
 badges = [
     "Stable" => "https://img.shields.io/badge/docs-stable-blue.svg)](https://kapple19.github.io/OceanSonar.jl/stable/"
@@ -16,6 +16,7 @@ link_definitions = [
     "Julia" => "https://docs.julialang.org/en"
     "Latexify.jl" => "https://korsbo.github.io/Latexify.jl/stable"
     "LiveServer.jl" => "https://tlienart.github.io/LiveServer.jl"
+    "Makie.jl" => "https://docs.makie.org/stable/"
     "ModelingToolkit.jl" => "https://docs.sciml.ai/ModelingToolkit/stable"
     "Plots.jl" => "https://docs.juliaplots.org/stable"
     "PropCheck.jl" => "https://seelengrab.github.io/PropCheck.jl/stable"
@@ -59,12 +60,17 @@ function present(io::IO, demo::Demo)
         println(io, "```")
         println(io)
 
-        output = let
-            include(codename)
-        end
-        if output isa Plots.Plot
+        sym = Symbol(codename)
+        m = Module(sym)
+        # Core.eval(m, :(eval(x) = Core.eval($m, x)))
+        Core.eval(m, :(include(x) = Base.include($m, abspath(x))))
+        # codefullpath = abspath(codepath)
+        # output = invokelatest(m.include, codefullpath)
+        output = @eval m include($codepath)
+
+        if output isa Figure
             outputpath = "readme/img/" * filebarename * ".svg"
-            savefig(output, outputpath)
+            save(outputpath, output)
             println(io, "![", outputpath, "](", outputpath, ")")
         elseif output isa Nothing
             println(io, "In development.")
@@ -76,10 +82,15 @@ function present(io::IO, demo::Demo)
 end
 
 demos = [
-    Demo("Acoustic ray tracing", [
-        "munk_profile_rays", "parabolic_bathymetry_rays"
-    ])
-    Demo("Visualise frequency changes", "lloyd_mirror_freq_perturb")
+    Demo(
+        "Acoustic ray tracing", [
+            "munk_profile_rays", "parabolic_bathymetry_rays"
+        ]
+    )
+    Demo(
+        "Visualise frequency changes (issues with CairoMakie image saving)",
+        "lloyd_mirror_freq_perturb"
+    )
     Demo(
         "Compare square root operator approximations for the parabolic equation",
         "lloyd_mirror_sqrt_approxers"

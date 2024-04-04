@@ -25,6 +25,6 @@ visual!(pos::GridPosition, beam::Beam) = visual!(pos, [beam])
 
 function visual!(pos::GridPosition, ::Type{Beam}, prop::Propagation)
     visual!(pos, Boundary, prop)
-    return visual!(pos, prop.beams)
-    
+    axis = visual!(pos, prop.beams)
+    axis.title = modeltitle(prop.scen)
 end

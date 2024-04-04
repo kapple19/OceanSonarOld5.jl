@@ -1,5 +1,5 @@
 using OceanSonar
-using Plots
+using CairoMakie
 
 scen = Scenario("Parabolic Bathymetry")
 lowest_angle = atan(1, 5)

@@ -15,10 +15,10 @@ using OrdinaryDiffEq:
     Tsit5,
     terminate!
 
-include("pre/root.jl")
+include("preliminary/root.jl")
 include("oceanography/root.jl")
 include("acoustics/root.jl")
 include("processing/root.jl")
-include("post/root.jl")
+include("postliminary/root.jl")
 
 end

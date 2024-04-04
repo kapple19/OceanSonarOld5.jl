@@ -11,6 +11,7 @@
 [Julia]: https://docs.julialang.org/en
 [Latexify.jl]: https://korsbo.github.io/Latexify.jl/stable
 [LiveServer.jl]: https://tlienart.github.io/LiveServer.jl
+[Makie.jl]: https://docs.makie.org/stable/
 [ModelingToolkit.jl]: https://docs.sciml.ai/ModelingToolkit/stable
 [Plots.jl]: https://docs.juliaplots.org/stable
 [PropCheck.jl]: https://seelengrab.github.io/PropCheck.jl/stable
@@ -56,7 +57,7 @@ Acoustic ray tracing
 
 ```julia
 using OceanSonar
-using Plots
+using CairoMakie
 
 scen = Scenario("Munk Profile")
 prop = Propagation("Trace", scen, angles = critical_angles(scen, N = 21))
@@ -68,7 +69,7 @@ visual(Beam, prop)
 
 ```julia
 using OceanSonar
-using Plots
+using CairoMakie
 
 scen = Scenario("Parabolic Bathymetry")
 lowest_angle = atan(1, 5)
@@ -85,7 +86,8 @@ Visualise frequency changes
 
 ```julia
 using OceanSonar
-using Plots
+using CairoMakie
+using Statistics
 
 model = "Lloyd Mirror"
 
@@ -95,25 +97,44 @@ function run_prop(f)
     return Propagation("Trace", scen)
 end
 
-# scens = [get_scen(f) for f in series125(5e3)]
-# props = [Propagation("Trace", scen) for scen in scens]
 props = [run_prop(f) for f in series125(5e3)]
-clims = extrema([prop.PL for prop in props] |> splat(vcat))
-plots = [
-    plot(prop,
-        title = string(prop.scen.f, " Hz"),
-        titlefontsize = 9,
-        clims = clims,
-        xticks = [],
-        yticks = []
-    )
-    for prop in props
-]
 
-# TODO:
-# * Add shared colourbar.
-# * Normalise subplot sizes.
-plot(plots..., plot_title = model, plot_titlefontsize = 12)
+bounds(data) = mean(data) .+ (3std(data) * [-1, 1])
+clims = [prop.PL for prop in props] |> splat(vcat) |> bounds
+
+##
+fig = Figure()
+num_rows, num_cols = OceanSonar.rect_or_square_gridsize(props |> length)
+heatmaps = Makie.Plot[]
+for row in 1:num_rows, col in 1:num_cols
+    lin = LinearIndices((num_cols, num_rows))
+
+    idx_prop = lin[col, row]
+    prop = props[idx_prop]
+
+    pos = fig[row, col]
+    axis = Axis(pos,
+        yreversed = true,
+        title = string(prop.scen.f, " Hz")
+    )
+    hidedecorations!(axis)
+
+    hm = heatmap!(axis,
+        prop,
+        colormap = Reverse(:jet),
+        colorrange = clims,
+        interpolate = true # https://github.com/MakieOrg/Makie.jl/issues/2514
+    )
+    push!(heatmaps, hm)
+end
+Colorbar(fig[:, end+1], heatmaps[1],
+    label = OceanSonar.label(Propagation)
+)
+Label(fig[0, :], model,
+    fontsize = 25
+)
+
+fig
 ```
 
 ![readme/img/lloyd_mirror_freq_perturb.svg](readme/img/lloyd_mirror_freq_perturb.svg)
@@ -122,14 +143,14 @@ Compare square root operator approximations for the parabolic equation
 
 ```julia
 using OceanSonar
-using Plots
+using CairoMakie
 
 scen = Scenario("Lloyd Mirror")
 config = ParabolicConfig()
 for model = list_models(RationalFunctionApproximation)
     # config.marcher = marcher
     # prop = Propagation(config, scen)
-    # visual(prop) # TODO: tile
+    # visual!(prop) # TODO: tile
 end
 
 nothing

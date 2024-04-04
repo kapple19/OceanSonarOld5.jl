@@ -3,7 +3,7 @@ module OceanSonarMakieExt
 using OceanSonar
 using Makie
 
-import OceanSonar: visual!, visual
+import OceanSonar: visual!, visual, OceanAxis
 import Makie: AbstractAxis, convert_arguments
 
 function OceanAxis(pos::GridPosition)
@@ -22,12 +22,6 @@ function visual(args...)
     visual!(pos, args...)
     return fig
 end
-
-# function visual!(pos::GridPosition, args...; kw...)
-#     axis = OceanAxis(pos)
-#     @info "here"
-#     visual!(axis, args...; kw...)
-# end
 
 include("boundary.jl")
 include("bivariate.jl")
