@@ -65,7 +65,7 @@ prop = Propagation("Trace", scen, angles = critical_angles(scen, N = 21))
 visual(Beam, prop)
 ```
 
-![readme/img/munk_profile_rays.svg](readme/img/munk_profile_rays.svg)
+![readme/img/munk_profile_rays.pdf](readme/img/munk_profile_rays.pdf)
 
 ```julia
 using OceanSonar
@@ -80,7 +80,7 @@ prop = Propagation("Trace", scen, angles = angles)
 visual(Beam, prop)
 ```
 
-![readme/img/parabolic_bathymetry_rays.svg](readme/img/parabolic_bathymetry_rays.svg)
+![readme/img/parabolic_bathymetry_rays.pdf](readme/img/parabolic_bathymetry_rays.pdf)
 
 Visualise frequency changes (issues with CairoMakie image saving)
 
@@ -102,7 +102,6 @@ props = [run_prop(f) for f in series125(5e3)]
 bounds(data) = mean(data) .+ (3std(data) * [-1, 1])
 clims = [prop.PL for prop in props] |> splat(vcat) |> bounds
 
-##
 fig = Figure()
 num_rows, num_cols = OceanSonar.rect_or_square_gridsize(props |> length)
 heatmaps = Makie.Plot[]
@@ -137,7 +136,7 @@ Label(fig[0, :], model,
 fig
 ```
 
-![readme/img/lloyd_mirror_freq_perturb.svg](readme/img/lloyd_mirror_freq_perturb.svg)
+![readme/img/lloyd_mirror_freq_perturb.pdf](readme/img/lloyd_mirror_freq_perturb.pdf)
 
 Compare square root operator approximations for the parabolic equation
 

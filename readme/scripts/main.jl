@@ -69,7 +69,7 @@ function present(io::IO, demo::Demo)
         output = @eval m include($codepath)
 
         if output isa Figure
-            outputpath = "readme/img/" * filebarename * ".svg"
+            outputpath = "readme/img/" * filebarename * ".pdf"
             save(outputpath, output)
             println(io, "![", outputpath, "](", outputpath, ")")
         elseif output isa Nothing
@@ -88,7 +88,7 @@ demos = [
         ]
     )
     Demo(
-        "Visualise frequency changes (issues with CairoMakie image saving)",
+        "Visualise frequency changes",
         "lloyd_mirror_freq_perturb"
     )
     Demo(

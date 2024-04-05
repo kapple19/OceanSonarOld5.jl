@@ -24,7 +24,9 @@ end
 visual!(pos::GridPosition, beam::Beam) = visual!(pos, [beam])
 
 function visual!(pos::GridPosition, ::Type{Beam}, prop::Propagation)
+    visual!(pos, OceanCelerity, prop)
     visual!(pos, Boundary, prop)
     axis = visual!(pos, prop.beams)
     axis.title = modeltitle(prop.scen)
+    return axis
 end

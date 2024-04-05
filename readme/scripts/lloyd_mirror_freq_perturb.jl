@@ -15,7 +15,6 @@ props = [run_prop(f) for f in series125(5e3)]
 bounds(data) = mean(data) .+ (3std(data) * [-1, 1])
 clims = [prop.PL for prop in props] |> splat(vcat) |> bounds
 
-##
 fig = Figure()
 num_rows, num_cols = OceanSonar.rect_or_square_gridsize(props |> length)
 heatmaps = Makie.Plot[]
