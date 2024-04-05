@@ -65,7 +65,7 @@ prop = Propagation("Trace", scen, angles = critical_angles(scen, N = 21))
 visual(Beam, prop)
 ```
 
-![readme/img/munk_profile_rays.pdf](readme/img/munk_profile_rays.pdf)
+![readme/img/munk_profile_rays.svg](readme/img/munk_profile_rays.svg)
 
 ```julia
 using OceanSonar
@@ -80,7 +80,7 @@ prop = Propagation("Trace", scen, angles = angles)
 visual(Beam, prop)
 ```
 
-![readme/img/parabolic_bathymetry_rays.pdf](readme/img/parabolic_bathymetry_rays.pdf)
+![readme/img/parabolic_bathymetry_rays.svg](readme/img/parabolic_bathymetry_rays.svg)
 
 Visualise frequency changes (issues with CairoMakie image saving)
 
@@ -136,7 +136,7 @@ Label(fig[0, :], model,
 fig
 ```
 
-![readme/img/lloyd_mirror_freq_perturb.pdf](readme/img/lloyd_mirror_freq_perturb.pdf)
+![readme/img/lloyd_mirror_freq_perturb.svg](readme/img/lloyd_mirror_freq_perturb.svg)
 
 Compare square root operator approximations for the parabolic equation
 
