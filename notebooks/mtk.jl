@@ -9,12 +9,14 @@ begin
 	using Pkg
 
 	Pkg.add("ModelingToolkit")
-	Pkg.add("DifferentialEquations")
+	Pkg.add("OrdinaryDiffEq")
+	Pkg.add("Symbolics")
 	Pkg.add("Plots")
 	Pkg.develop("OceanSonar")
 
 	using ModelingToolkit
-	using DifferentialEquations
+	using OrdinaryDiffEq
+	using Symbolics
 	using Plots
 	using OceanSonar
 
@@ -41,7 +43,7 @@ E.g. <https://github.com/SciML/ModelingToolkit.jl/pull/2427>
 		ξ(s), [description = "Normalised horizontal celerity gradient"]
 		ζ(s), [description = "Normalised vertical celerity gradient"]
 	end
-	
+
 	@structural_parameters begin
 		scen
 	end
@@ -92,7 +94,7 @@ sol_munk = let
 		sin(angle) / munk_profile(0.0, 1e3)
 	]
 	prob = ODEProblem(eik, u0, (0.0, 100e3))
-	sol = solve(prob)
+	sol = solve(prob, Tsit5())
 end
 
 # ╔═╡ 830f3ff2-f62c-475e-bdd5-ba3772c67dcf
@@ -112,7 +114,7 @@ plot(sol_munk, idxs = (:x, :z), yflip = true)
 	
 # 	# prob = ODEProblem(eik_scen, u0, OceanSonar.DEFAULT_RAY_ARC_SPAN)
 # 	prob = ODEProblem(eik_scen, u0, (0.0, 100e3))
-# 	sol = solve(prob)
+# 	sol = solve(prob, Tsit5())
 # end
 
 # ╔═╡ 57041ca1-be9c-41b0-809b-c90dd3874f8b
@@ -137,7 +139,7 @@ function trace(scen::Scenario, angle)
 	# prob = ODEProblem(eik, u0, (0.0, 250e3);
 	# 	continuous_events = [eik.z ~ 0] => [eik.ζ ~ -eik.ζ]
 	# )
-	sol = solve(prob)
+	sol = solve(prob, Tsit5())
 end
 
 # ╔═╡ 3c6b2229-5ba7-43bf-8fef-f7600a3aba11
@@ -185,6 +187,12 @@ let
 	plot!(yflip = true, legend = false)
 end
 
+# ╔═╡ 1aea1350-51b0-4dc0-a0d6-4f061b8cebb4
+names(Symbolics)
+
+# ╔═╡ 1ace5e8a-106c-4dae-a43c-9fcf625418b1
+?@register_symbolic
+
 # ╔═╡ Cell order:
 # ╟─7e349625-b3d6-4e6b-a9d7-7ac032ab4aa9
 # ╠═f6f34400-dd3f-11ee-1a23-33af0a082239
@@ -208,3 +216,5 @@ end
 # ╠═c18f392c-557e-43b3-8644-65aeb78ed837
 # ╠═b61be131-2bf2-422f-8a81-fb5980999371
 # ╠═d6bd9ed2-d768-4ea3-beeb-e1aaa5d068c5
+# ╠═1aea1350-51b0-4dc0-a0d6-4f061b8cebb4
+# ╠═1ace5e8a-106c-4dae-a43c-9fcf625418b1

@@ -30,6 +30,8 @@ end
 
 list_model_symbols(::Type{Beam}) = list_model_symbols(Beams)
 
+show(io::IO, beam::Beam) = show(io, "$(beam |> typeof)(θ₀ = $(beam.θ(0.0)))")
+
 function Beams(
     ::Val{:ray},
     scen::Scenario;

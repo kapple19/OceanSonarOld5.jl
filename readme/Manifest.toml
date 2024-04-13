@@ -1282,7 +1282,7 @@ uuid = "510215fc-4207-5dde-b226-833fc4488ee2"
 version = "0.5.5"
 
 [[deps.OceanSonar]]
-deps = ["ForwardDiff", "Interpolations", "IntervalArithmetic", "LinearAlgebra", "NaNMath", "OrdinaryDiffEq", "Statistics"]
+deps = ["ForwardDiff", "Interpolations", "IntervalArithmetic", "LinearAlgebra", "NaNMath", "OrdinaryDiffEq", "PrecompileTools", "Statistics"]
 path = "C:\\Users\\Aaron\\.julia\\dev\\OceanSonar"
 uuid = "606d67fd-65b6-4abb-b2f0-1946d248e4dc"
 version = "1.0.0-DEV"

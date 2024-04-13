@@ -14,6 +14,7 @@ using OrdinaryDiffEq:
     ContinuousCallback,
     Tsit5,
     terminate!
+using PrecompileTools: @setup_workload, @compile_workload
 
 include("preliminary/root.jl")
 include("oceanography/root.jl")
