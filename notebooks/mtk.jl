@@ -10,13 +10,11 @@ begin
 
 	Pkg.add("ModelingToolkit")
 	Pkg.add("OrdinaryDiffEq")
-	Pkg.add("Symbolics")
 	Pkg.add("Plots")
 	Pkg.develop("OceanSonar")
 
 	using ModelingToolkit
 	using OrdinaryDiffEq
-	using Symbolics
 	using Plots
 	using OceanSonar
 
@@ -191,7 +189,7 @@ end
 names(Symbolics)
 
 # ╔═╡ 1ace5e8a-106c-4dae-a43c-9fcf625418b1
-?@register_symbolic
+@register_symbolic
 
 # ╔═╡ Cell order:
 # ╟─7e349625-b3d6-4e6b-a9d7-7ac032ab4aa9

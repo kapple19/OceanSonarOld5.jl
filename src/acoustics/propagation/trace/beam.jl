@@ -54,7 +54,7 @@ function Beams(
         du[3] = dξ_ds = -∂c_∂x / c²
         du[4] = dζ_ds = -∂c_∂z / c²
     end
-    
+
     x₀::Float64 = 0.0
     z₀::Float64 = scen.z
     c₀::Float64 = c_func(x₀, z₀)
@@ -132,6 +132,8 @@ function Beams(
         ζ(s) = sol(s, idxs = 4)
         θ(s) = atan(ζ(s), ξ(s))
         c(s) = scen.env.ocn.cel(x(s), z(s))
+
+        @assert θ(0.0) ≈ θ₀
 
         pressure(s::Real, n::Real) = ComplexF64(0.0)
 
