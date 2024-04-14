@@ -1,4 +1,4 @@
-# Acoustic Tracing
+# Acoustic Tracing Models
 
 ```@docs
 TraceConfig

@@ -1,4 +1,4 @@
-# Beam-Grid Interpolation
+# Acoustic Tracing Interpolation to Grid
 
 ```@example
 using OceanSonar

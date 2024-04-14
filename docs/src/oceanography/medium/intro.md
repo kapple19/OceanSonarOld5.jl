@@ -1,5 +1,0 @@
-# Acoustic Medium
-
-```@docs
-Medium
-```

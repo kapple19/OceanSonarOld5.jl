@@ -1,4 +1,4 @@
-# Ocean Sonar Scenarios
+# Ocean Acoustics Scenario
 
 ```@docs
 Scenario

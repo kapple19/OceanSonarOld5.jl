@@ -1,5 +1,0 @@
-# Environment
-
-```@docs
-Environment
-```

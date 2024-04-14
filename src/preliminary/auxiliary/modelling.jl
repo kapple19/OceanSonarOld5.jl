@@ -1,7 +1,6 @@
 export list_models
 export list_inputs
 export modelsnake
-export modelval
 export modelsymbol
 export modeltitle
 

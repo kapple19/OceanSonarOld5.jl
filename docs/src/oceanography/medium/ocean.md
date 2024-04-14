@@ -1,5 +1,0 @@
-# Ocean Medium
-
-```@docs
-Ocean
-```

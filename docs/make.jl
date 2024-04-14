@@ -1,131 +1,71 @@
 using OceanSonar
 using Documenter
 
+DocMeta.setdocmeta!(OceanSonar, :DocTestSetup, :(using OceanSonar); recursive=true)
+
 pages = [
     "Ocean Sonar" => "index.md"
-    "Generic" => [
-        "Usage" => "generic/usage.md"
-        "Implementation" => "generic/implementation.md"
-        "Modelling" => "generic/modelling.md"
-        "Public API" => "generic/public.md"
-        "Developers" => "generic/developers.md"
-        "Interpolation" => "generic/interpolation.md"
+    "General" => [
+        "Usage" => "general/usage.md"
+        "Implementation" => "general/implementation.md"
     ]
     "Oceanography" => [
-        "Introduction" => "oceanography/intro.md"
-        "Boundary" => [
-            "Introduction" => "oceanography/boundary/intro.md"
-            "Altimetry" => "oceanography/boundary/altimetry.md"
-            "Bathymetry" => "oceanography/boundary/bathymetry.md"
+        "Parameters" => [
+            "Celerity" => [
+                "Atmosphere" => "oceanography/parameters/celerity/atmosphere.md"
+                "Ocean" => "oceanography/parameters/celerity/ocean.md"
+                "Seabed" => [
+                    "Compressional" => "oceanography/parameters/celerity/seabed/compressional.md"
+                    "Shear" => "oceanography/parameters/celerity/seabed/shear.md"
+                ]
+            ]
+            "Density" => [
+                "Atmosphere" => "oceanography/parameters/density/atmosphere.md"
+                "Ocean" => "oceanography/parameters/density/ocean.md"
+                "Seabed" => "oceanography/parameters/density/seabed.md"
+            ]
+            "Attenuation" => [
+                "Atmosphere" => "oceanography/parameters/attenuation/atmosphere.md"
+                "Ocean" => "oceanography/parameters/attenuation/ocean.md"
+                "Seabed" => [
+                    "Compressional" => "oceanography/parameters/attenuation/seabed/compressional.md"
+                    "Shear" => "oceanography/parameters/attenuation/seabed/shear.md"
+                ]
+            ]
         ]
-        "Celerity" => [
-            "Introduction" => "oceanography/celerity/intro.md"
-            "Atmosphere" => "oceanography/celerity/atmosphere.md"
-            "Ocean" => "oceanography/celerity/ocean.md"
-            "Seabed" => "oceanography/celerity/seabed.md"
-            "Seabed Shear" => "oceanography/celerity/shear.md"
+        "Environment" => [
+            "Introduction" => "oceanography/environment/intro.md"
+            "Boundary" => [
+                "Altimetry" => "oceanography/environment/boundary/altimetry.md"
+                "Bathymetry" => "oceanography/environment/boundary/bathymetry.md"
+            ]
+            "Medium" => [
+                "Introduction" => "oceanography/environment/medium/intro.md"
+                "Atmosphere" => "oceanography/environment/medium/atmosphere.md"
+                "Ocean" => "oceanography/environment/medium/ocean.md"
+                "Seabed" => "oceanography/environment/medium/seabed.md"
+            ]
         ]
-        "Density" => [
-            "Introduction" => "oceanography/density/intro.md"
-            "Atmosphere" => "oceanography/density/atmosphere.md"
-            "Ocean" => "oceanography/density/ocean.md"
-            "Seabed" => "oceanography/density/seabed.md"
-        ]
-        "Attenuation" => [
-            "Introduction" => "oceanography/attenuation/intro.md"
-            "Atmosphere" => "oceanography/attenuation/atmosphere.md"
-            "Ocean" => "oceanography/attenuation/ocean.md"
-            "Seabed" => "oceanography/attenuation/seabed.md"
-            "Seabed Shear" => "oceanography/attenuation/shear.md"
-        ]
-        "Medium" => [
-            "Introduction" => "oceanography/medium/intro.md"
-            "Atmosphere" => "oceanography/medium/atmosphere.md"
-            "Ocean" => "oceanography/medium/ocean.md"
-            "Seabed" => "oceanography/medium/seabed.md"
-        ]
-        "Environment" => "oceanography/environment.md"
     ]
     "Acoustics" => [
-        "Introduction" => "acoustics/intro.md"
         "Scenario" => "acoustics/scenario.md"
         "Reflection" => [
-            "Introduction" => "acoustics/reflection/intro.md"
-            "Surface" => "acoustics/reflection/surface.md"
             "Bottom" => "acoustics/reflection/bottom.md"
         ]
         "Propagation" => [
             "Introduction" => "acoustics/propagation/intro.md"
             "Tracing" => [
                 "Introduction" => "acoustics/propagation/tracing/intro.md"
-                "Rays" => "acoustics/propagation/tracing/ray.md"
+                "Rays" => "acoustics/propagation/tracing/rays.md"
                 "Beams" => "acoustics/propagation/tracing/beam.md"
                 "Grid" => "acoustics/propagation/tracing/grid.md"
-                "Replication" => "acoustics/propagation/tracing/replication.md"
             ]
             "Parabolic" => [
-                "Introduction" => "acoustics/propagation/parabolic/root.md"
-                "Marchers" => "acoustics/propagation/parabolic/marchers.md"
+                "Marchers" => "acoustics/propagation/parabolic/marcher.md"
             ]
         ]
     ]
-    "Sonar" => [
-        "Introduction" => "sonar/intro.md"
-    ]
-    "Detection" => [
-        "Introduction" => "detection/intro.md"
-        "Threshold" => "detection/threshold.md"
-        "Transition" => "detection/transition.md"
-    ]
 ]
-
-macros = Dict(
-    raw"\rma" => raw"\mathrm{a}",
-    raw"\rmd" => raw"\mathrm{d}",
-    raw"\rmE" => raw"\mathrm{E}",
-    raw"\rmPr" => raw"\mathrm{Pr}",
-    raw"\SNR" => raw"\mathrm{SNR}",
-    raw"\DT" => raw"\mathrm{DT}",
-    raw"\SE" => raw"\mathrm{SE}",
-    raw"\SNR" => raw"\mathrm{SNR}",
-    raw"\calE" => raw"\mathcal{E}",
-    raw"\calN" => raw"\mathcal{N}",
-    raw"\wrt" => raw"\mathrm{ w.r.t. }",
-    raw"\STD" => raw"\mathrm{STD}",
-    raw"\Var" => raw"\mathrm{Var}",
-    raw"\Rice" => raw"\mathrm{Rice}"
-)
-
-# doesn't work
-# mathengine = MathJax3(
-#     Dict(
-#         :delimiters => [
-#             Dict(:left => raw"$",   :right => raw"$",   display => false),
-#             Dict(:left => raw"$$",  :right => raw"$$",  display => true),
-#             Dict(:left => raw"\[",  :right => raw"\]",  display => true),
-#         ],
-#         :loader => Dict("load" => ["[tex]/physics"]),
-#         :tex => Dict(
-#             "inlineMath" => [["\$","\$"], ["\\(","\\)"]],
-#             "tags" => "ams",
-#             "packages" => ["base", "ams", "autoload", "physics"],
-#         ),
-#         :macros => macros
-#     )
-# )
-
-mathengine = Documenter.KaTeX(
-    Dict(
-        :delimiters => [
-            Dict(:left => raw"$",   :right => raw"$",   display => false),
-            Dict(:left => raw"$$",  :right => raw"$$",  display => true),
-            Dict(:left => raw"\[",  :right => raw"\]",  display => true),
-        ],
-        :macros => macros,
-    )
-)
-
-DocMeta.setdocmeta!(OceanSonar, :DocTestSetup, :(using OceanSonar); recursive=true)
 
 makedocs(;
     sitename="OceanSonar.jl",
@@ -135,8 +75,7 @@ makedocs(;
         canonical="https://kapple19.github.io/OceanSonar.jl",
         edit_link = :commit,
         collapselevel = 1,
-        assets = String[],
-        mathengine = mathengine
+        assets = String[]
     ),
     pages = pages,
 )

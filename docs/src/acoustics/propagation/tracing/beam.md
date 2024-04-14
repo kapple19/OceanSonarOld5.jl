@@ -1,4 +1,4 @@
-# Beam Tracing
+# Acoustic Beam Tracing
 
 ```@docs
 Beam

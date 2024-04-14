@@ -1,5 +1,0 @@
-# Atmosphere Medium
-
-```@docs
-Atmosphere
-```
