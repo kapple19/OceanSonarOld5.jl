@@ -57,22 +57,7 @@ $(document).ready(function() {
       "right": "\\]",
       "display": true
     }
-  ],
-  "macros": {
-    "\\rmPr": "\\mathrm{Pr}",
-    "\\calN": "\\mathcal{N}",
-    "\\rma": "\\mathrm{a}",
-    "\\SE": "\\mathrm{SE}",
-    "\\wrt": "\\mathrm{ w.r.t. }",
-    "\\DT": "\\mathrm{DT}",
-    "\\Var": "\\mathrm{Var}",
-    "\\SNR": "\\mathrm{SNR}",
-    "\\STD": "\\mathrm{STD}",
-    "\\rmE": "\\mathrm{E}",
-    "\\Rice": "\\mathrm{Rice}",
-    "\\calE": "\\mathcal{E}",
-    "\\rmd": "\\mathrm{d}"
-  }
+  ]
 }
 
   );
