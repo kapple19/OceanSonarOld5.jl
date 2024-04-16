@@ -18,7 +18,7 @@ function model_parsers_equal(
         type(model |> modelsnake)(inputs...)
         type(model |> modelsymbol)(inputs...)
     ]
-    val = type(model |> modelval)(inputs...)
+    val = type(model |> OceanSonar.modelval)(inputs...)
     return if isnan(val)
         isnan.(vals) |> all
     else
