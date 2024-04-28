@@ -39,6 +39,7 @@ Motivations of the primary author:
 * Demonstration of Julia as next generation scientific software tool for analysis and deployment.
 
 ## Usage
+
 Installation requires the [Julia] programming language.
 
 This package is still under development,
@@ -157,6 +158,17 @@ nothing
 
 In development.
 
+Visualise the equations of an OceanSonar.jl model
+
+```julia
+using OceanSonar
+using Symbolics
+
+@variables x z
+ocean_celerity("Munk", x, z) |> string
+```
+
+1500(1 + 0.00737(-1 + 2(-1 + (1//1300)*z) + exp(-2(-1 + (1//1300)*z))))
 ## Implementation & Roadmap Summary
 
 * Sonar oceanography

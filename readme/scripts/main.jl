@@ -68,14 +68,20 @@ function present(io::IO, demo::Demo)
         # output = invokelatest(m.include, codefullpath)
         output = @eval m include($codepath)
 
-        if output isa Figure
+        if output isa Nothing
+            println(io, "In development.")
+        elseif output isa AbstractString
+            print(io, output)
+        elseif output isa Figure
             outputpath = "readme/img/" * filebarename * ".svg"
             save(outputpath, output)
             println(io, "![", outputpath, "](", outputpath, ")")
-        elseif output isa Nothing
-            println(io, "In development.")
         else
-            error("Unrecognised expression evaluation output.")
+            error("""
+            Unrecognised expression evaluation output
+            from file $codename:
+            $(output |> typeof).
+            """)
         end
         println(io)
     end
@@ -94,6 +100,10 @@ demos = [
     Demo(
         "Compare square root operator approximations for the parabolic equation",
         "lloyd_mirror_sqrt_approxers"
+    )
+    Demo(
+        "Visualise the equation for an OceanSonar.jl model",
+        "munk_profile_eqn"
     )
 ]
 
@@ -116,6 +126,7 @@ function write_readme_file()
         println(file)
         
         println(file, "## Usage")
+        println(file)
         println(file, read("readme/texts/usage.md", String))
         println(file)
         
