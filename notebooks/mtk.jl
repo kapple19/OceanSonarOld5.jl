@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.40
+# v0.19.41
 
 using Markdown
 using InteractiveUtils
@@ -73,11 +73,11 @@ function munk_profile(x, z; ϵ = 7.37e-3)
 	1500(1 + ϵ * (z̃ - 1 + exp(-z̃)))
 end
 
-# ╔═╡ d32b532c-59c9-4f3c-aebe-4d5eabf69b10
-scen = Scenario("Munk Profile")
-
 # ╔═╡ 8b79f49d-5486-4bd9-8e6f-c5f74c5579e2
 @mtkbuild eik = Eikonal(scen = scen)
+
+# ╔═╡ d32b532c-59c9-4f3c-aebe-4d5eabf69b10
+scen = Scenario("Munk Profile")
 
 # ╔═╡ 49b98d31-ce55-47ee-8b27-fed9365c6a6a
 @mtkbuild eik_munk = Eikonal(scen = scen)
