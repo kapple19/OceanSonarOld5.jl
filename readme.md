@@ -158,7 +158,7 @@ nothing
 
 In development.
 
-Visualise the equations of an OceanSonar.jl model
+Visualise the equation for an OceanSonar.jl model
 
 ```julia
 using OceanSonar
