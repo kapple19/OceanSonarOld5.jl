@@ -29,22 +29,22 @@ function visual!(pos::GridPosition, bnd::Boundary, x::AbstractVector{<:Real})
     return current_axis()
 end
 
-function visual!(pos::GridPosition, ::Type{Altimetry}, env::Environment, x::AbstractVector{<:Real})
-    return visual!(pos, env.ati, x)
+function visual!(pos::GridPosition, ::Type{Altimetry}, slc::Slice, x::AbstractVector{<:Real})
+    return visual!(pos, slc.ati, x)
 end
 
-function visual!(pos::GridPosition, ::Type{Bathymetry}, env::Environment, x::AbstractVector{<:Real})
-    return visual!(pos, env.bty, x)
+function visual!(pos::GridPosition, ::Type{Bathymetry}, slc::Slice, x::AbstractVector{<:Real})
+    return visual!(pos, slc.bty, x)
 end
 
-function visual!(pos::GridPosition, ::Type{Boundary}, env::Environment, x::AbstractVector{<:Real})
-    visual!(pos, Altimetry, env, x)
-    visual!(pos, Bathymetry, env, x)
+function visual!(pos::GridPosition, ::Type{Boundary}, slc::Slice, x::AbstractVector{<:Real})
+    visual!(pos, Altimetry, slc, x)
+    visual!(pos, Bathymetry, slc, x)
     return current_axis()
 end
 
 function visual!(pos::GridPosition, type::Type{<:Boundary}, scen::Scenario, x::AbstractVector{<:Real})
-    return visual!(pos, type, scen.env, x)
+    return visual!(pos, type, scen.slc, x)
 end
 
 function visual!(pos::GridPosition, type::Type{<:Boundary}, scen::Scenario, Nx::Integer)

@@ -7,7 +7,7 @@ TODO.
 @kwdef mutable struct Scenario <: Container
     model::Val
 
-    env::Environment
+    slc::Slice
 
     x::Float64
     z::Float64
@@ -16,7 +16,7 @@ end
 
 Scenario(model::Val{:lloyd_mirror}) = Scenario(
     model = model,
-    env = Environment(:lloyd_mirror),
+    slc = Slice(:lloyd_mirror),
     x = 500.0,
     z = 25.0,
     f = 150.0
@@ -24,7 +24,7 @@ Scenario(model::Val{:lloyd_mirror}) = Scenario(
 
 Scenario(model::Val{:munk_profile}) = Scenario(
     model = model,
-    env = Environment(:munk_profile),
+    slc = Slice(:munk_profile),
     x = 100e3,
     z = 1e3,
     f = 500.0
@@ -32,7 +32,7 @@ Scenario(model::Val{:munk_profile}) = Scenario(
 
 Scenario(model::Val{:index_squared_profile}) = Scenario(
     model = model,
-    env = Environment(:index_squared_profile),
+    slc = Slice(:index_squared_profile),
     x = 3.5e3,
     z = 1e3,
     f = 100.0
@@ -40,7 +40,7 @@ Scenario(model::Val{:index_squared_profile}) = Scenario(
 
 Scenario(model::Val{:parabolic_bathymetry}) = Scenario(
     model = model,
-    env = Environment(:parabolic_bathymetry),
+    slc = Slice(:parabolic_bathymetry),
     x = 20e3,
     z = 0.0,
     f = 1e2
@@ -48,7 +48,7 @@ Scenario(model::Val{:parabolic_bathymetry}) = Scenario(
 
 Scenario(model::Val{:linearised_convergence_zones}) = Scenario(
     model = model,
-    env = Environment(:linearised_convergence_zones),
+    slc = Slice(:linearised_convergence_zones),
     x = 250e3,
     z = 0.0,
     f = 1e3
@@ -56,7 +56,7 @@ Scenario(model::Val{:linearised_convergence_zones}) = Scenario(
 
 Scenario(model::Val{:norwegian_sea_sound_channel}) = Scenario(
     model = model,
-    env = Environment(:norwegian_sea),
+    slc = Slice(:norwegian_sea),
     x = 250e3,
     z = 500.0,
     f = 1e3
@@ -64,7 +64,7 @@ Scenario(model::Val{:norwegian_sea_sound_channel}) = Scenario(
 
 Scenario(model::Val{:norwegian_sea_surface_duct}) = Scenario(
     model = model,
-    env = Environment(:norwegian_sea),
+    slc = Slice(:norwegian_sea),
     x = 40e3,
     z = 40.0,
     f = 1e3
@@ -97,20 +97,20 @@ depth_extrema(
 )
 
 depth_extrema(
-    env::Environment,
+    slc::Slice,
     x_lo::Real,
     x_hi::Real
-) = depth_extrema(env.ati, env.bty, x_lo, x_hi)
+) = depth_extrema(slc.ati, slc.bty, x_lo, x_hi)
 
 depth_extrema(
     scen::Scenario,
     x_lo::Real = 0.0,
     x_hi::Real = scen.x
-) = depth_extrema(scen.env, x_lo, x_hi)
+) = depth_extrema(scen.slc, x_lo, x_hi)
 
 depth_minimum(args...) = depth_extrema(args...) |> splat(min)
 depth_maximum(args...) = depth_extrema(args...) |> splat(max)
 
 function validate(scen::Scenario)
-    @assert scen.env.ati(0) ≤ scen.z ≤ scen.env.bty(0)
+    @assert scen.slc.ati(0) ≤ scen.z ≤ scen.slc.bty(0)
 end

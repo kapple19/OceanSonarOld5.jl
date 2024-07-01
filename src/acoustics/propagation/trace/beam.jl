@@ -37,7 +37,7 @@ function Beams(
     scen::Scenario;
     angles = default_angles(scen)
 )
-    c_func(x::Real, z::Real) = scen.env.ocn.cel(x, z)
+    c_func(x::Real, z::Real) = scen.slc.ocn.cel(x, z)
     ∂c_∂x_func(x::Real, z::Real) = derivative(x -> c_func(x, z), x)
     ∂c_∂z_func(x::Real, z::Real) = derivative(z -> c_func(x, z), z)
 
@@ -59,8 +59,8 @@ function Beams(
     z₀::Float64 = scen.z
     c₀::Float64 = c_func(x₀, z₀)
 
-    R_func(::Altimetry, x, z, θ) = SurfaceReflectionCoefficient(:rayleigh_fluid, scen.env)(x, z, scen.f, θ |> abs)
-    R_func(::Bathymetry, x, z, θ) = BottomReflectionCoefficient(:rayleigh_solid, scen.env)(x, z, scen.f, θ |> abs)
+    R_func(::Altimetry, x, z, θ) = SurfaceReflectionCoefficient(:rayleigh_fluid, scen.slc)(x, z, scen.f, θ |> abs)
+    R_func(::Bathymetry, x, z, θ) = BottomReflectionCoefficient(:rayleigh_solid, scen.slc)(x, z, scen.f, θ |> abs)
 
     beams = Beam[]
     u₀ = [x₀, z₀, NaN64, NaN64]
@@ -102,13 +102,13 @@ function Beams(
         )
 
         cb_ati = ContinuousCallback(
-            (u, _, _) -> u[2] - scen.env.ati(u[1]),
-            ntg -> reflect!(ntg, scen.env.ati)
+            (u, _, _) -> u[2] - scen.slc.ati(u[1]),
+            ntg -> reflect!(ntg, scen.slc.ati)
         )
 
         cb_bty = ContinuousCallback(
-            (u, _, _) -> u[2] - scen.env.bty(u[1]),
-            ntg -> reflect!(ntg, scen.env.bty)
+            (u, _, _) -> u[2] - scen.slc.bty(u[1]),
+            ntg -> reflect!(ntg, scen.slc.bty)
         )
 
         # cb_hrz = ContinuousCallback(
@@ -131,7 +131,7 @@ function Beams(
         ξ(s) = sol(s, idxs = 3)
         ζ(s) = sol(s, idxs = 4)
         θ(s) = atan(ζ(s), ξ(s))
-        c(s) = scen.env.ocn.cel(x(s), z(s))
+        c(s) = scen.slc.ocn.cel(x(s), z(s))
 
         @assert θ(0.0) ≈ θ₀
 
@@ -154,7 +154,7 @@ function Beams(
 
     ω = 2π * scen.f
 
-    c_func(x::Real, z::Real) = scen.env.ocn.cel(x, z)
+    c_func(x::Real, z::Real) = scen.slc.ocn.cel(x, z)
     ∂c_∂x_func(x::Real, z::Real) = derivative(x -> c_func(x, z), x)
     ∂c_∂z_func(x::Real, z::Real) = derivative(z -> c_func(x, z), z)
     ∂²c_∂x²_func(x::Real, z::Real) = derivative(x -> ∂c_∂x_func(x, z), x)
@@ -195,8 +195,8 @@ function Beams(
     q₀::ComplexF64 = 0.0 + im * pi * scen.f * W₀^2
     τ₀::Float64 = 0.0
 
-    R_func(::Altimetry, x, z, θ) = SurfaceReflectionCoefficient(:rayleigh_fluid, scen.env)(x, z, scen.f, θ |> abs)
-    R_func(::Bathymetry, x, z, θ) = BottomReflectionCoefficient(:rayleigh_solid, scen.env)(x, z, scen.f, θ |> abs)
+    R_func(::Altimetry, x, z, θ) = SurfaceReflectionCoefficient(:rayleigh_fluid, scen.slc)(x, z, scen.f, θ |> abs)
+    R_func(::Bathymetry, x, z, θ) = BottomReflectionCoefficient(:rayleigh_solid, scen.slc)(x, z, scen.f, θ |> abs)
 
     beams = Beam[]
     u₀ = [x₀, z₀, NaN64, NaN64, reim(p₀)..., reim(q₀)..., τ₀]
@@ -238,13 +238,13 @@ function Beams(
         )
 
         cb_ati = ContinuousCallback(
-            (u_sol, _, _) -> u_sol[2] - scen.env.ati(u_sol[1]),
-            ntg -> reflect!(ntg, scen.env.ati)
+            (u_sol, _, _) -> u_sol[2] - scen.slc.ati(u_sol[1]),
+            ntg -> reflect!(ntg, scen.slc.ati)
         )
 
         cb_bty = ContinuousCallback(
-            (u_sol, _, _) -> u_sol[2] - scen.env.bty(u_sol[1]),
-            ntg -> reflect!(ntg, scen.env.bty)
+            (u_sol, _, _) -> u_sol[2] - scen.slc.bty(u_sol[1]),
+            ntg -> reflect!(ntg, scen.slc.bty)
         )
 
         # cb_hrz = ContinuousCallback(
@@ -267,7 +267,7 @@ function Beams(
         ξ(s) = sol(s, idxs = 3)
         ζ(s) = sol(s, idxs = 4)
         θ(s) = atan(ζ(s), ξ(s))
-        c(s) = scen.env.ocn.cel(x(s), z(s))
+        c(s) = scen.slc.ocn.cel(x(s), z(s))
 
         s_rfl = [s_srf; s_bot] |> uniquesort!
         cumul_refl_coeff(s) = prod(@views R_rfl[s .≤ s_rfl])

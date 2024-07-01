@@ -5,13 +5,13 @@ function signal_to_noise_ratio(::Type{<:Passive},
 end
 
 function signal_to_noise_ratio(::Type{<:Monostatic},
-    SL::Real, PL::Real, NL::Real, RL::Real, DI::Real
+    SL::Real, PL::Real, TS::Real, NL::Real, RL::Real, DI::Real
 )
-    SL - 2PL - (NL ⊕ RL) + DI
+    SL - 2PL + TS - (NL ⊕ RL) + DI
 end
 
 function signal_to_noise_ratio(::Type{<:Bistatic},
-    SL::Real, PLa::Real, PLb::Real, NL::Real, RL::Real, DI::Real
+    SL::Real, PLa::Real, PLb::Real, TS::Real, NL::Real, RL::Real, DI::Real
 )
-    SL - PLa - PLb - (NL ⊕ RL) + DI
+    SL - PLa + TS - PLb - (NL ⊕ RL) + DI
 end

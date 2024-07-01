@@ -24,16 +24,16 @@ const DEFAULT_NUM_RAYS = 101
 tangent_angle(bnd::Boundary) = derivative(x -> bnd(x), 0) |> atan
 
 function minimum_angle(scen::Scenario)
-    if scen.z == scen.env.ati(0)
-        tangent_angle(scen.env.ati) + shallowest_angle(scen)
+    if scen.z == scen.slc.ati(0)
+        tangent_angle(scen.slc.ati) + shallowest_angle(scen)
     else
         -steepest_angle(scen)
     end
 end
 
 function maximum_angle(scen::Scenario)
-    if scen.z == scen.env.bty(0)
-        tangent_angle(scen.env.bty) - shallowest_angle(scen)
+    if scen.z == scen.slc.bty(0)
+        tangent_angle(scen.slc.bty) - shallowest_angle(scen)
     else
         steepest_angle(scen)
     end
@@ -51,11 +51,11 @@ end
 critical_angle(c_from, c_to) = snells_law(c_to, 0.0, c_from)
 
 function critical_angles(scen::Scenario; N::Integer = DEFAULT_NUM_RAYS)
-    z_srf = scen.env.ati(0)
-    z_bot = scen.env.bty(0)
-    c_srf = scen.env.ocn.cel(0.0, z_srf)
-    c_bot = scen.env.ocn.cel(0.0, z_bot)
-    c_own = scen.env.ocn.cel(0.0, scen.z)
+    z_srf = scen.slc.ati(0)
+    z_bot = scen.slc.bty(0)
+    c_srf = scen.slc.ocn.cel(0.0, z_srf)
+    c_bot = scen.slc.ocn.cel(0.0, z_bot)
+    c_own = scen.slc.ocn.cel(0.0, scen.z)
 
     θ_min = if scen.z == z_srf || c_own ≥ c_srf
         minimum_angle(scen)

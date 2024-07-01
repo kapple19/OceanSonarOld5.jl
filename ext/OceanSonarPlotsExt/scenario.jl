@@ -19,7 +19,7 @@ function visual!(scen::Scenario; kw...)
 end
 
 function visual!(type::Type{<:Boundary}, scen::Scenario; kw...)
-    visual!(type, scen.env;
+    visual!(type, scen.slc;
         xlims = (0, scen.x),
         ylims = OceanSonar.depth_extrema(scen),
         kw...
@@ -27,7 +27,7 @@ function visual!(type::Type{<:Boundary}, scen::Scenario; kw...)
 end
 
 function visual!(type::Type{<:Bivariate}, scen::Scenario; kw...)
-    visual!(type, scen.env;
+    visual!(type, scen.slc;
         xlims = (0, scen.x),
         ylims = OceanSonar.depth_extrema(scen),
         kw...

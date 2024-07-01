@@ -51,7 +51,7 @@ E.g. <https://github.com/SciML/ModelingToolkit.jl/pull/2427>
 		∂c_∂z(x, z) = ModelingToolkit.derivative(c(x, z), z)
 		∂c_∂x(x, z) = ModelingToolkit.derivative(c(x, z), x)
 
-		c = scen.env.ocn.cel
+		c = scen.slc.ocn.cel
 	end
 
 	@continuous_events begin
@@ -100,14 +100,14 @@ plot(sol_munk, idxs = (:x, :z), yflip = true)
 
 # ╔═╡ 20e37e67-7a97-4598-b6c3-92e021464a53
 # function trace(scen::Scenario, angle)
-# 	@mtkbuild eik_scen = Eikonal(c = scen.env.ocn.cel)
+# 	@mtkbuild eik_scen = Eikonal(c = scen.slc.ocn.cel)
 # 	x0 = 0.0
 # 	z0 = scen.z
 # 	u0 = [
 # 		x0
 # 		z0
-# 		cos(angle) / scen.env.ocn.cel(x0, z0)
-# 		sin(angle) / scen.env.ocn.cel(x0, z0)
+# 		cos(angle) / scen.slc.ocn.cel(x0, z0)
+# 		sin(angle) / scen.slc.ocn.cel(x0, z0)
 # 	]
 	
 # 	# prob = ODEProblem(eik_scen, u0, OceanSonar.DEFAULT_RAY_ARC_SPAN)
@@ -123,8 +123,8 @@ function trace(scen::Scenario, angle)
 	u0 = [
 		x0
 		z0
-		cos(angle) / scen.env.ocn.cel(x0, z0)
-		sin(angle) / scen.env.ocn.cel(x0, z0)
+		cos(angle) / scen.slc.ocn.cel(x0, z0)
+		sin(angle) / scen.slc.ocn.cel(x0, z0)
 	]
 	
 	prob = ODEProblem(eik, u0, OceanSonar.DEFAULT_RAY_ARC_SPAN)

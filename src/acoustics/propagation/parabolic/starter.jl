@@ -24,7 +24,7 @@ struct FieldStarter <: Univariate
     z₀::Real
 
     function FieldStarter(model::Val, scen::Scenario)
-        k₀ = 2π * scen.f / scen.env.ocn.cel(0, scen.z)
+        k₀ = 2π * scen.f / scen.slc.ocn.cel(0, scen.z)
         
         new(model, k₀, scen.z)
     end

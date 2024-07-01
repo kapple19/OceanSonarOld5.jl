@@ -26,7 +26,7 @@ Performs the following:
 * Creates a `Makie.Figure` with a single `Makie.GridPosition`.
 * Plots according to `args...`
 * Flips the y-axis positive-downwards for representing depth.
-* Plots the boundaries if such information is available (`Environment` and upward).
+* Plots the boundaries if such information is available (`Slice` and upward).
 * Adds a colorbar if 2D data (`<:Bivariate`) is plotted.
 * Adds labels and units.
 * Applies a default colouring for distinguishing between the different plots on the axis.
@@ -41,7 +41,7 @@ Plottable instances are:
 * `Bathymetry`
 * `<:Celerity` (e.g. `OceanCelerity` instances)
 * `<:Density`
-* `Environment`
+* `Slice`
 * `Scenario`
 * `Beam`
 * `Vector{Beam}`
@@ -99,8 +99,8 @@ create_ranges(scen::Scenario, Nx::Integer) = create_ranges(0.0, scen.x, Nx)
 create_ranges(prop::Propagation) = prop.x
 
 create_depths(z1::Real, z2::Real, Nz::Integer) = range(z1, z2, Nz)
-create_depths(env::Environment, xlo::Real, xhi::Real, Nz::Integer) = create_depths(depth_extrema(env, xlo, xhi)..., Nz)
-create_depths(scen::Scenario, Nz::Integer) = create_depths(scen.env, 0.0, scen.x, Nz)
+create_depths(slc::Slice, xlo::Real, xhi::Real, Nz::Integer) = create_depths(depth_extrema(slc, xlo, xhi)..., Nz)
+create_depths(scen::Scenario, Nz::Integer) = create_depths(scen.slc, 0.0, scen.x, Nz)
 create_depths(prop::Propagation) = prop.z
 
 square_numbers = [(n, n, n^2) for n in 1:25]

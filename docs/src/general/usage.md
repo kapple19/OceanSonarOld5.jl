@@ -33,7 +33,7 @@ View their respective documentation for more details.
 Data containers available for storing information are:
 
 * `Medium`
-* `Environment`
+* `Slice`
 * TODO: programmatically produce this list.
 
 ## Functors

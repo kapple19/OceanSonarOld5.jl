@@ -20,7 +20,7 @@ struct Parabolic <: Propagation
         starter = FieldStarter(config.field_starter, scen)
         ψ = [starter.(depths)]
         
-        k₀ = 2π * scen.f / scen.env.ocn.cel(0, scen.z)
+        k₀ = 2π * scen.f / scen.slc.ocn.cel(0, scen.z)
         p = [
             [
                 ψel/√(x) * cis(k₀*x - π/4)

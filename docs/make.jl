@@ -33,7 +33,7 @@ pages = [
                 ]
             ]
         ]
-        "Environment" => [
+        "Slice" => [
             "Introduction" => "oceanography/environment/intro.md"
             "Boundary" => [
                 "Altimetry" => "oceanography/environment/boundary/altimetry.md"

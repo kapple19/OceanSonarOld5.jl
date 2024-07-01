@@ -1,9 +1,9 @@
-export Environment
+export Slice
 
 """
 TODO.
 """
-@kwdef mutable struct Environment <: Container
+@kwdef mutable struct Slice <: Container
     model::Val = Val(Symbol())
 
     atm::Atmosphere = Atmosphere()
@@ -14,46 +14,46 @@ TODO.
     bty::Bathymetry = Bathymetry()
 end
 
-Environment(model::Val{:lloyd_mirror}) = Environment(
+Slice(model::Val{:lloyd_mirror}) = Slice(
     model = model,
     ocn = Ocean(:homogeneous),
     sbd = Seabed(:jensen_clay),
     bty = Bathymetry(:half_kilometre)
 )
 
-Environment(model::Val{:munk_profile}) = Environment(
+Slice(model::Val{:munk_profile}) = Slice(
     model = model,
     ocn = Ocean(:munk_profile),
     sbd = Seabed(:jensen_clay),
     bty = Bathymetry(:deep)
 )
 
-Environment(model::Val{:index_squared_profile}) = Environment(
+Slice(model::Val{:index_squared_profile}) = Slice(
     model = model,
     ocn = Ocean(:index_squared_profile),
     sbd = Seabed(:jensen_clay),
     bty = Bathymetry(:mesopelagic)
 )
 
-Environment(model::Val{:parabolic_bathymetry}) = Environment(
+Slice(model::Val{:parabolic_bathymetry}) = Slice(
     model = model,
     ocn = Ocean(:homogeneous),
     sbd = Seabed(:jensen_basalt),
     bty = Bathymetry(:parabolic)
 )
 
-Environment(model::Val{:linearised_convergence_zones}) = Environment(
+Slice(model::Val{:linearised_convergence_zones}) = Slice(
     model = model,
     ocn = Ocean(:linearised_convergence_zones),
     sbd = Seabed(:jensen_basalt),
     bty = Bathymetry(:deep)
 )
 
-Environment(model::Val{:norwegian_sea}) = Environment(
+Slice(model::Val{:norwegian_sea}) = Slice(
     model = model,
     ocn = Ocean(:norwegian_sea),
     sbd = Seabed(:jensen_basalt),
     bty = Bathymetry(:four_kilometers)
 )
 
-@parse_models Environment
+@parse_models Slice

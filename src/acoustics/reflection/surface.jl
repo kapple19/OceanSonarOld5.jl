@@ -1,12 +1,12 @@
-function SurfaceReflectionCoefficient(::Val{:rayleigh_fluid}, env::Environment)
+function SurfaceReflectionCoefficient(::Val{:rayleigh_fluid}, slc::Slice)
     function func(x::Real, z::Real, f::Real, θ_inc::Real)
         reflection_coefficient(:rayleigh_fluid,
-            env.ocn.den(x, z),
-            env.atm.den(x, z),
-            env.ocn.cel(x, z),
-            env.atm.cel(x, z),
-            env.ocn.atn(x, z, f),
-            env.atm.atn(x, z, f),
+            slc.ocn.den(x, z),
+            slc.atm.den(x, z),
+            slc.ocn.cel(x, z),
+            slc.atm.cel(x, z),
+            slc.ocn.atn(x, z, f),
+            slc.atm.atn(x, z, f),
             θ_inc
         )
     end

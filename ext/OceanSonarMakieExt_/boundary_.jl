@@ -34,17 +34,17 @@ end
 
 function boundaryplot_!(
     plot::Plot,
-    env::Environment,
+    slc::Slice,
     x_lo::Real = 0.0,
     x_hi::Real = 1e3
 )
-    boundaryplot_!(plot, env.bnd, x_lo, x_hi)
+    boundaryplot_!(plot, slc.bnd, x_lo, x_hi)
 end
 
 function boundaryplot_!(plot::Plot, scen::Scenario)
     x_lo = 0.0
     x_hi = scen.x
-    boundaryplot_!(plot, scen.env, x_lo, x_hi)
+    boundaryplot_!(plot, scen.slc, x_lo, x_hi)
 end
 
 boundaryplot_!(::Plot, args...) = error(

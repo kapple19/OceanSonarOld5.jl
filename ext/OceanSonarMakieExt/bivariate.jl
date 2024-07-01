@@ -32,17 +32,17 @@ function visual!(pos::GridPosition,
     return visual!(pos, get(med, type), x, z)
 end
 
-get_medium(env::Environment, ::Type{<:OceanCelerity}) = env.ocn
-get_medium(env::Environment, ::Type{<:OceanDensity}) = env.ocn
+get_medium(slc::Slice, ::Type{<:OceanCelerity}) = slc.ocn
+get_medium(slc::Slice, ::Type{<:OceanDensity}) = slc.ocn
 
 function visual!(pos::GridPosition,
     type::Type{<:Bivariate},
-    env::Environment,
+    slc::Slice,
     x::AbstractVector{<:Real},
     z::AbstractVector{<:Real}
 )
-    axis = visual!(pos, type, get_medium(env, type), x, z)
-    visual!(pos, Boundary, env, x)
+    axis = visual!(pos, type, get_medium(slc, type), x, z)
+    visual!(pos, Boundary, slc, x)
     return axis
 end
 
@@ -52,7 +52,7 @@ function visual!(pos::GridPosition,
     x::AbstractVector{<:Real},
     z::AbstractVector{<:Real}
 )
-    axis = visual!(pos, type, scen.env, x, z)
+    axis = visual!(pos, type, scen.slc, x, z)
     axis.title = modeltitle(scen)
     return axis
 end
@@ -65,7 +65,7 @@ function visual!(pos::GridPosition,
 )
     x = OceanSonar.create_ranges(0.0, scen.x, Nx)
     z = range(depth_extrema(scen)..., Nz)
-    return visual!(pos, type, scen.env, x, z)
+    return visual!(pos, type, scen.slc, x, z)
 end
 
 function visual!(pos::GridPosition,

@@ -1,5 +1,5 @@
-# The Ocean Environment
+# The Ocean Slice
 
 ```@docs
-Environment
+Slice
 ```

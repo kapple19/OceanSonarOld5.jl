@@ -15,9 +15,12 @@ using SafeTestsets
     end
 
     @testset "Modelling" verbose = true begin
-        @safetestset "Sonar Types" include("modelling/hierarchy.jl")
         @safetestset "Concreteness" include("modelling/concreteness.jl")
         @safetestset "Type Stability" include("modelling/type_stability.jl")
         @safetestset "Model Stability" include("modelling/model_stability.jl")
+    end
+
+    @testset "Processing" verbose = true begin
+        @safetestset "Sonar Types" include("processing/sonar_types.jl")
     end
 end

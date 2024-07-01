@@ -13,7 +13,7 @@ end
 include("boundary.jl")
 include("bivariate.jl")
 include("medium.jl")
-include("environment.jl")
+include("slice.jl")
 include("scenario.jl")
 include("beam.jl")
 include("propagation.jl")
